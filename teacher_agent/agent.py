@@ -1,11 +1,12 @@
 from google.adk.agents import LlmAgent
 from teacher_agent.prompt import ROOT_INSTRUCTIONS
-from query_agent.sub_agents.prompt_to_sql_agent.agent import prompt_to_sql_agent
+from teacher_agent.sub_agents.schema_designer_agent.agent import schema_designer_agent
+from teacher_agent.sub_agents.memory_agent.agent import *
 
 root_agent = LlmAgent(
-    name="query_agent",
+    name="teacher_agent",
     model="gemini-2.0-flash",
-    description="The root agent who delegates tasks to sub-agents",
+    description="The root agent called teacher_agent who delegates tasks related to SQL to sub-agents",
     instruction=ROOT_INSTRUCTIONS,
-    sub_agents=[prompt_to_sql_agent],
+    sub_agents=[schema_designer_agent],
 )
