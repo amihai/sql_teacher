@@ -125,8 +125,9 @@ The user wants a database with students and courses.
   "explanation": "This schema defines students and courses with a many-to-many relationship through the enrollments table."
 }
 
-## Design Guidelines
+**Very important**: You must delegate to the MemoryAgent (memory_agent) who will execute **all commands** for creating the schema.
 
+## Design Guidelines
     1. Use consistent naming (snake_case for tables and columns).
     2. Include primary keys for all main tables.
     3. Use foreign keys to express relationships.

@@ -1,12 +1,21 @@
 import sqlite3
 
-def create_db_schema(db_schema: dict):
-    """Create db schema"""
-    con = sqlite3.connect(":memory:")
+_connection = sqlite3.connect(":memory:", check_same_thread=False)
+_cursor = _connection.cursor()
 
-    sql_script = db_schema["sql_script"]
+def db_interactions(sql_command: str):
+    """
+    Execute SQL commands within an in-memory SQLite database.
+    Handles schema creation, data manipulation, and querying.
+    """
 
-    cursor = con.cursor()
-    cursor.execute(sql_script)
-
-    return {"response": "successfully created schema"}
+    try:
+        _cursor.execute(sql_command)
+        if sql_command.strip().lower().startswith("select"):
+            rows = _cursor.fetchall()
+            return {"response": "query executed successfully", "rows": rows}
+        else:
+            _connection.commit()
+            return {"response": "successfully executed command"}
+    except Exception as e:
+        return {"response": "error", "details": str(e)}

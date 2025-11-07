@@ -39,8 +39,7 @@ When a user sends a message, identify the intent and select the target sub-agent
 | Intent Type | Example User Input | Target Agent | Action |
 |--------------|--------------------|---------------|--------|
 | **Schema Design** | “I want a database with students and courses.” | `schema_designer_agent` | Generate the schema definition. |
-| **DDL Operation** | “Add a new column to the students table.” / “Drop the enrollments table.” | `ddl_agent` | Create or modify database structure. |
-| **DML Operation** | “Insert a new student.” / “Show all courses.” / “Delete student with id 3.” | `dml_agent` | Execute data manipulation queries. |
+| **Memory Agent** | “Add a new column to the students table / Insert data to database / Query data from database / “Drop the enrollments table.” | `memory_agent` | Create or modify database structure. |
 | **Query Explanation** | “Can you explain what this query does?” / “What does this JOIN mean?” | `query_explainer_agent` | Explain or rewrite the SQL query in simpler terms. |
 | **Execution Request** | “Create this database.” / “Run the schema.” | `memory_agent` | Execute SQL against the in-memory DB. |
 | **Clarification Needed** | Ambiguous or incomplete request. | N/A | Ask clarifying questions before delegating. |
