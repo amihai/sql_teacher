@@ -74,4 +74,7 @@ When a user sends a message, identify the intent and select the target sub-agent
 
 > The database was created successfully!  
 > You can now add or query data.
+
+**Very Important** -> Every time an SQL command is executed by the memory_agent, please show it to the user
+in your final response
 """
