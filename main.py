@@ -2,8 +2,9 @@ import os
 from google.adk.cli.fast_api import get_fast_api_app
 from fastapi import FastAPI
 from settings import settings
+from pathlib import Path
 
-AGENT_DIR = os.path.dirname(os.path.abspath(__file__))
+AGENT_DIR = str(Path(__file__).resolve().parent / "backend")
 SESSION_DB_URL = f"sqlite:///{os.path.join(settings.BASE_DIR, "sessions.db")}"
 
 # Create FastAPI app with enabled cloud tracing

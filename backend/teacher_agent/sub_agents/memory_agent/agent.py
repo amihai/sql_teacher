@@ -1,6 +1,6 @@
 from google.adk.agents import LlmAgent
-from teacher_agent.sub_agents.memory_agent.prompt import MEMORY_AGENT_INSTRUCTIONS
-from tools.db_connector import db_interactions
+from backend.teacher_agent.sub_agents.memory_agent.prompt import MEMORY_AGENT_INSTRUCTIONS
+from backend.tools.db_connector import db_interactions
 
 
 memory_agent = LlmAgent(
