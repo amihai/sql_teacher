@@ -5,7 +5,6 @@ def get_conversations(session):
     """Extract and format conversations from session data"""
 
     conversation_info = []
-    print(session["events"])
 
     for conversation in session["events"]:
         if "text" in conversation["content"]["parts"][0]:

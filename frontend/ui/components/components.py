@@ -45,7 +45,6 @@ class SessionManagerComponent(BaseComponent):
             return
 
         sessions = st.session_state.adk_client.get_sessions()
-        print(sessions)
         session_ids = [session["id"] for session in sessions]
         session_ids.insert(0, None)
         st.session_state.all_session_ids = session_ids
