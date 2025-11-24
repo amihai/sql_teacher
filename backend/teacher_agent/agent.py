@@ -1,9 +1,9 @@
 from google.adk.agents import LlmAgent
 from google.adk.tools import AgentTool
-from teacher_agent.prompt import ROOT_INSTRUCTIONS
-from teacher_agent.sub_agents.schema_designer_agent.agent import schema_designer_agent
-from teacher_agent.sub_agents.memory_agent.agent import memory_agent
-from teacher_agent.sub_agents.quiz_agent.agent import quiz_agent
+from backend.teacher_agent.prompt import ROOT_INSTRUCTIONS
+from backend.teacher_agent.sub_agents.schema_designer_agent.agent import schema_designer_agent
+from backend.teacher_agent.sub_agents.memory_agent.agent import memory_agent
+from backend.teacher_agent.sub_agents.quiz_agent.agent import quiz_agent
 
 
 root_agent = LlmAgent(

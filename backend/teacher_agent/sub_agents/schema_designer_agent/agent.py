@@ -1,5 +1,5 @@
 from google.adk.agents import LlmAgent
-from teacher_agent.sub_agents.schema_designer_agent.prompt import SCHEMA_DESIGNER_INSTRUCTIONS
+from backend.teacher_agent.sub_agents.schema_designer_agent.prompt import SCHEMA_DESIGNER_INSTRUCTIONS
 
 schema_designer_agent = LlmAgent(
     name="schema_designer_agent",
