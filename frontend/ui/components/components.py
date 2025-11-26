@@ -1,7 +1,7 @@
 import streamlit as st
 from frontend.ui.components.base import BaseComponent
 from frontend.services.adk_service import ADKService
-from frontend.helpers.get_conversation import get_conversations
+from frontend.helpers.get_conversation import get_conversations, get_first_user_question
 
 
 class SidebarComponent(BaseComponent):
@@ -39,6 +39,9 @@ class SessionManagerComponent(BaseComponent):
         if 'all_session_ids' not in st.session_state:
             st.session_state.all_session_ids = []
 
+        if 'all_session_conversations' not in st.session_state:
+            st.session_state.all_session_conversations = []
+
     def render(self):
         if not st.session_state.adk_client:
             st.warning("Please configure server connection first")
@@ -46,17 +49,25 @@ class SessionManagerComponent(BaseComponent):
 
         sessions = st.session_state.adk_client.get_sessions()
         session_ids = [session["id"] for session in sessions]
+
+        all_sessions = [st.session_state.adk_client.get_session_by_id(session["id"]) for session in sessions]
+        session_conversations = [get_first_user_question(session) for session in all_sessions]
+        print(session_conversations)
         session_ids.insert(0, None)
+        session_conversations.insert(0, None)
+
         st.session_state.all_session_ids = session_ids
+        st.session_state.all_session_conversations = session_conversations
 
         selected_session = st.selectbox(
             "Please select the session",
-            options=st.session_state.all_session_ids,
+            options=st.session_state.all_session_conversations,
             key="session_selector",
             index=st.session_state.all_session_ids.index(st.session_state.current_session_id)
         )
-
-        st.session_state.current_session_id = selected_session
+        index_of_session_conversation = st.session_state.all_session_conversations.index(selected_session)
+        st.session_state.current_session_id = st.session_state.all_session_ids[index_of_session_conversation]
+        # print(st.session_state.current_session_id)
 
         col1, col2 = st.columns(2)
         with col1:
