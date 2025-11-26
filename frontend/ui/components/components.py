@@ -52,7 +52,7 @@ class SessionManagerComponent(BaseComponent):
 
         all_sessions = [st.session_state.adk_client.get_session_by_id(session["id"]) for session in sessions]
         session_conversations = [get_first_user_question(session) for session in all_sessions]
-        print(session_conversations)
+
         session_ids.insert(0, None)
         session_conversations.insert(0, None)
 
