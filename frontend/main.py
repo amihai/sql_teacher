@@ -4,6 +4,7 @@ from frontend.ui.components.components import (
     SidebarComponent,
     ChatComponent,
     SessionManagerComponent,
+    TermsModal,
 )
 
 st.set_page_config(
@@ -17,11 +18,22 @@ def main():
 
     layout = Layout()
 
-    sidebar = SidebarComponent()
-    session_manager = SessionManagerComponent()
-    chat = ChatComponent()
+    terms = TermsModal()
+    terms.render()
 
-    layout.render([sidebar, session_manager, chat])
+    if st.session_state.accepted_terms is True:
+
+        sidebar = SidebarComponent()
+        session_manager = SessionManagerComponent()
+        chat = ChatComponent()
+
+        layout.render([sidebar, session_manager, chat])
+
+    elif st.session_state.accepted_terms is False:
+        st.error("You have not accepted the terms and conditions. "
+                 "If you want to run the application please accept the terms and conditions")
+        st.stop()
+
 
 if __name__ == "__main__":
     main()

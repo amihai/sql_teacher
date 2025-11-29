@@ -2,6 +2,7 @@ import streamlit as st
 from frontend.ui.components.base import BaseComponent
 from frontend.services.adk_service import ADKService
 from frontend.helpers.get_conversation import get_conversations, get_first_user_question
+from frontend.helpers.terms import terms_and_conditions
 
 
 class SidebarComponent(BaseComponent):
@@ -67,7 +68,6 @@ class SessionManagerComponent(BaseComponent):
         )
         index_of_session_conversation = st.session_state.all_session_conversations.index(selected_session)
         st.session_state.current_session_id = st.session_state.all_session_ids[index_of_session_conversation]
-        # print(st.session_state.current_session_id)
 
         col1, col2 = st.columns(2)
         with col1:
@@ -175,3 +175,35 @@ class ChatComponent(BaseComponent):
                 st.rerun()
             except Exception as e:
                 st.error(f"Error processing query: {e}")
+
+
+class TermsModal(BaseComponent):
+    def __init__(self):
+        super().__init__("terms_modal")
+        self.is_sidebar = False
+
+    def initialize_state(self):
+        if 'accepted_terms' not in st.session_state:
+            st.session_state.accepted_terms = None
+
+    @st.dialog("Terms and conditions")
+    def _modal(self):
+        txt = st.markdown(
+               terms_and_conditions
+        )
+        col1, col2 = st.columns(2)
+
+        with col1:
+            if st.button("Yes, I accept"):
+                st.session_state.accepted_terms = True
+                st.rerun()
+
+        with col2:
+            if st.button("No, I do not accept"):
+                st.session_state.accepted_terms = False
+                st.rerun()
+
+    def render(self):
+        """If no decision render the model"""
+        if st.session_state.get("accepted_terms") is None:
+            self._modal()
