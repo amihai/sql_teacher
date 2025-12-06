@@ -181,3 +181,15 @@ GOOGLE_API_KEY=your google API Key
 A FastApi server will open, with a nice frontend interface so you can test 
 the app. Please note that this interface is mostly used for development and 
 not in production.
+
+2. Third method - using the **Docker Compose**
+* Open a terminal
+* Run:
+  * ```docker compose up --build``` to build and start the application (both backend and frontend) 
+  * ```docker compose up ``` onloy to start the application (both backend and frontend). This will be usefull when we will do the remote deploy.
+* Open the service in browse:
+  * [SQL Teacher Streamlit Frontend](http://localhost:8501/)
+* Additional Commands:
+  * Ctrl + C to stop the application
+  * Start in detached mode: ```docker compose up -d```
+  * Stop the application: ```docker compose down```

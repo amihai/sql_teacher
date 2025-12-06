@@ -1,10 +1,9 @@
 """Services for consuming the API endpoints"""
-from idlelib.debugger_r import DictProxy
-
 import requests
 import streamlit as st
 from settings import settings
 from typing import Dict, List
+import logging
 
 
 class ADKService:
@@ -12,6 +11,7 @@ class ADKService:
 
     def __init__(self):
         self.base_url = settings.BASE_URL
+        logging.info(f"ADKService initialized with base URL: {self.base_url}")
         self.session = requests.Session()
 
     def create_session(self) -> Dict:
@@ -20,9 +20,11 @@ class ADKService:
             response = self.session.post(
                 f"{self.base_url}/apps/{settings.APP_NAME}/users/{settings.USER_ID}/sessions/{settings.get_session_id()}"
             )
+            logging.info(f"Create session response status: {response.status_code}")
             response.raise_for_status()
             return response.json()
         except requests.RequestException as e:
+            logging.error(f"Error creating session: {e}")
             return {}
 
     def get_session_by_id(self, session_id: str) -> List[Dict]:

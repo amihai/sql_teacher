@@ -5,7 +5,7 @@ from settings import settings
 from pathlib import Path
 
 AGENT_DIR = str(Path(__file__).resolve().parent / "backend")
-SESSION_DB_URL = f"sqlite:///{os.path.join(settings.BASE_DIR, "sessions.db")}"
+SESSION_DB_URL = f"sqlite:///{settings.SESSION_DB}"
 
 # Create FastAPI app with enabled cloud tracing
 app: FastAPI = get_fast_api_app(

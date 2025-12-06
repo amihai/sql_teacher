@@ -1,0 +1,9 @@
+# docker build -t andreimihai/sql-teacher-base -f Dockerfile.base .
+FROM python:3.11.14-alpine
+LABEL authors="Marius"
+
+WORKDIR /app
+
+COPY requirements.txt /app
+
+RUN pip install -r requirements.txt

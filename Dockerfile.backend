@@ -1,0 +1,13 @@
+# docker build -t andreimihai/sql-teacher-backend -f Dockerfile.backend .
+# docker network create sql-teacher-network
+# docker run --rm -p 8082:8080 --name sql-teacher-backend -e GOOGLE_GENAI_USE_VERTEXAI=$GOOGLE_GENAI_USE_VERTEXAI --network sql-teacher-network -e GOOGLE_API_KEY=$GOOGLE_API_KEY -e SESSION_DB=/storage/session.db -v /tmp/storage:/storage andreimihai/sql-teacher-backend
+FROM andreimihai/sql-teacher-base
+LABEL authors="Marius" 
+
+COPY  backend backend
+
+
+COPY settings.py .
+COPY main.py .
+
+CMD ["python3", "main.py"]
