@@ -11,7 +11,7 @@ def db_interactions(sql_command: str):
     """
 
     try:
-        _cursor.execute(sql_command) if sql_command.find(";") == 1 else _cursor.executescript(sql_command)
+        _cursor.execute(sql_command)
         if sql_command.strip().lower().startswith("select"):
             rows = _cursor.fetchall()
             return {"response": "query executed successfully", "rows": rows}
@@ -19,4 +19,5 @@ def db_interactions(sql_command: str):
             _connection.commit()
             return {"response": "successfully executed command"}
     except Exception as e:
+        print(e)
         return {"response": "error", "details": str(e)}

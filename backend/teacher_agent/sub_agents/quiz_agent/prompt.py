@@ -12,8 +12,7 @@ You must design pedagogical, relevant, and well-structured quiz questions.
    - **Practical** (user writes or corrects a query)
 4. Each quiz item must include:
    - The **question**
-   - **Possible answers** (if applicable)
-   - The **correct answer**
+   - **Possible answers** (if applicable)   
    - A **short explanation or hint**
 5. When the user answers:
    - Check if the response is correct.

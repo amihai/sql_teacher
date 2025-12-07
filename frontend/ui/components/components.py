@@ -4,6 +4,8 @@ from frontend.services.adk_service import ADKService
 from frontend.helpers.get_conversation import get_conversations, get_first_user_question
 from frontend.helpers.terms import terms_and_conditions
 
+print("running...")
+print(st.session_state)
 
 class SidebarComponent(BaseComponent):
     """Sidebar component for server configuration"""
@@ -52,20 +54,26 @@ class SessionManagerComponent(BaseComponent):
         session_ids = [session["id"] for session in sessions]
 
         all_sessions = [st.session_state.adk_client.get_session_by_id(session["id"]) for session in sessions]
-        session_conversations = [get_first_user_question(session) for session in all_sessions]
+        session_conversations = [get_first_user_question(session) or f"New session {session['id'][:8]}..." for session in all_sessions]
 
         session_ids.insert(0, None)
-        session_conversations.insert(0, None)
+        session_conversations.insert(0, "Choose an option")
 
         st.session_state.all_session_ids = session_ids
         st.session_state.all_session_conversations = session_conversations
+
+        if st.session_state.current_session_id and st.session_state.current_session_id in st.session_state.all_session_ids:
+            default_index = st.session_state.all_session_ids.index(st.session_state.current_session_id)
+        else:
+            default_index = 0
 
         selected_session = st.selectbox(
             "Please select the session",
             options=st.session_state.all_session_conversations,
             key="session_selector",
-            index=st.session_state.all_session_ids.index(st.session_state.current_session_id)
+            index=default_index,
         )
+
         index_of_session_conversation = st.session_state.all_session_conversations.index(selected_session)
         st.session_state.current_session_id = st.session_state.all_session_ids[index_of_session_conversation]
 
@@ -93,11 +101,9 @@ class SessionManagerComponent(BaseComponent):
     @staticmethod
     def _delete_session():
         """Delete the current session"""
-
         try:
             if st.session_state.current_session_id:
                 st.session_state.adk_client.delete_session(session_id=st.session_state.current_session_id)
-                st.session_state.all_session_ids.remove(st.session_state.current_session_id)
                 st.session_state.current_session_id = None
                 st.rerun()
         except Exception as e:
@@ -126,7 +132,6 @@ class ChatComponent(BaseComponent):
     @staticmethod
     def _render_conversation():
         """Render the current conversation"""
-
         selected_session = st.session_state.adk_client.get_session_by_id(
             st.session_state.current_session_id
         )
@@ -155,12 +160,10 @@ class ChatComponent(BaseComponent):
     @staticmethod
     def _handle_user_message(message: str):
         """Handle user message and get response"""
-
         if not st.session_state.current_session_id:
             try:
                 session = st.session_state.adk_client.create_session()
                 st.session_state.current_session_id = session["id"]
-                st.success(f"Created new session: {session['id'][:8]}...")
             except Exception as e:
                 st.error(f"Error creating session: {e}")
                 return
@@ -175,7 +178,6 @@ class ChatComponent(BaseComponent):
                 st.rerun()
             except Exception as e:
                 st.error(f"Error processing query: {e}")
-
 
 class TermsModal(BaseComponent):
     def __init__(self):
