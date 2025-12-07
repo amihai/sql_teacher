@@ -5,12 +5,13 @@
 #    - DOCKERHUB_TOKEN: <your DockerHub access token>
 # To create DockerHub token: DockerHub > Account Settings > Security > New Access Token
 
-name: Build and Push Backend Docker Image
-
+name: Build and Push Frontend Docker Image
+  
 on:
   push:
     branches:
       - master
+
 jobs:
   build_and_push:
     runs-on: ubuntu-latest
@@ -30,6 +31,16 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
+      
+      - name: Build Frontend Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: Dockerfile.frontend
+          push: true
+          tags: |
+            andreimihai/sql-teacher-frontend:latest
+            andreimihai/sql-teacher-frontend:${{ github.sha }}
       
       - name: Build Backend Docker image
         uses: docker/build-push-action@v5
