@@ -1,3 +1,4 @@
+# Deprecated: Use Dockerfile.backend and Dockerfile.frontend instead
 FROM python:latest
 LABEL authors="Marius"
 

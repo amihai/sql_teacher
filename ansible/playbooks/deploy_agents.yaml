@@ -1,0 +1,39 @@
+- name: Deploy platforma de monitorizare
+  hosts: all
+  become: true
+
+  vars:
+    install_dir: "/home/ansible/sql-teacher"
+
+  tasks:
+    - name: Creeaza directorul proiectului
+      file:
+        path: "{{ install_dir }}"
+        state: directory
+        owner: ansible
+        group: ansible
+    
+    - name: Create .env file
+      template:
+        src: .env.j2
+        dest: "{{ install_dir }}/.env"
+        mode: '0600'
+        owner: ansible
+        group: ansible
+
+    - name: Creeaza directorul de storage sesiuni
+      file:
+        path: "/tmp/storage"
+        state: directory
+        owner: ansible
+        group: ansible
+
+    - name: Copiaza compose.yml
+      copy:
+        src: "../../compose.yaml"  # cale relativa din ansible/playbooks/
+        dest: "{{ install_dir }}/compose.yml"
+        owner: ansible
+        group: ansible
+
+    - name: Ruleaza docker compose
+      command: "sudo docker compose -f {{ install_dir }}/compose.yml up -d"    

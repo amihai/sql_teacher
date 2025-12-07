@@ -1,0 +1,10 @@
+- name: Stop Sql Teacher agents
+  hosts: all
+  become: true
+
+  vars:
+    install_dir: "/home/ansible/sql-teacher"
+
+  tasks:
+    - name: Ruleaza docker compose down
+      command: "docker compose -f {{ install_dir }}/compose.yml down"

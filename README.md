@@ -193,3 +193,16 @@ not in production.
   * Ctrl + C to stop the application
   * Start in detached mode: ```docker compose up -d```
   * Stop the application: ```docker compose down```
+
+
+4️⃣ Build and Deploy
+1. Ansible
+* Update the machines IPs in the `ansible/inventory.ini` 
+* Install Docker ```ansible-playbook -i ansible/inventory.ini ansible/playbooks/install_docker.yaml``` 
+* Deploy Sql Teacher
+    * ```source .env```
+    * ```ansible-playbook -i ansible/inventory.ini ansible/playbooks/deploy_agents.yaml -e "GOOGLE_GENAI_USE_VERTEXAI=$GOOGLE_GENAI_USE_VERTEXAI GOOGLE_API_KEY=$GOOGLE_API_KEY"```
+* Open the service in browse:
+  * [SQL Teacher Streamlit Frontend](http://http://217.156.93.84:8501/)
+* Stop Sql Teacher
+    * ```ansible-playbook -i ansible/inventory.ini ansible/playbooks/stop_agents.yaml```
