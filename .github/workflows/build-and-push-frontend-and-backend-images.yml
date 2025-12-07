@@ -32,7 +32,7 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       
-      - name: Build Frontend Docker image
+      - name: Build and Push Frontend Docker image
         uses: docker/build-push-action@v5
         with:
           context: .
@@ -42,7 +42,7 @@ jobs:
             andreimihai/sql-teacher-frontend:latest
             andreimihai/sql-teacher-frontend:${{ github.sha }}
       
-      - name: Build Backend Docker image
+      - name: Build and Push Backend Docker image
         uses: docker/build-push-action@v5
         with:
           context: .
