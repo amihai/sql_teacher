@@ -203,6 +203,6 @@ not in production.
     * ```source .env```
     * ```ansible-playbook -i ansible/inventory.ini ansible/playbooks/deploy_agents.yaml -e "GOOGLE_GENAI_USE_VERTEXAI=$GOOGLE_GENAI_USE_VERTEXAI GOOGLE_API_KEY=$GOOGLE_API_KEY"```
 * Open the service in browse:
-  * [SQL Teacher Streamlit Frontend](http://http://217.156.93.84:8501/)
+  * [SQL Teacher Streamlit Frontend](http://217.156.93.84:8501/)
 * Stop Sql Teacher
     * ```ansible-playbook -i ansible/inventory.ini ansible/playbooks/stop_agents.yaml```
