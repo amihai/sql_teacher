@@ -1,0 +1,32 @@
+name: Stop Sql Teacher on Servers
+
+on:
+  workflow_dispatch:   # rulare manuală
+
+jobs:
+  ansible:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Install Ansible
+        run: |
+          sudo apt update
+          sudo apt install -y ansible
+
+      - name: Add SSH key
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: |
+            ${{ secrets.ANSIBLE_SSH_PRIVATE_KEY }}
+
+      - name: Disable host key checking
+        run: |
+          echo "[defaults]" > ~/.ansible.cfg
+          echo "host_key_checking = False" >> ~/.ansible.cfg
+
+      - name: Stop Sql Teacher Agents
+        run: |
+          ansible-playbook -i ansible/inventory.ini ansible/playbooks/stop_agents.yaml
