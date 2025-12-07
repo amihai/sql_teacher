@@ -5,7 +5,7 @@
 #    - DOCKERHUB_TOKEN: <your DockerHub access token>
 # To create DockerHub token: DockerHub > Account Settings > Security > New Access Token
 
-name: Build and Push Frontend Docker Image
+name: Build and Push Frontend and Backend Images
   
 on:
   push:
