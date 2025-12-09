@@ -1,0 +1,54 @@
+# Credentials should be stored as GitHub Secrets in repository settings:
+# 1. Go to repository Settings > Secrets and variables > Actions
+# 2. Add new repository secrets:
+#    - DOCKERHUB_USERNAME: andreimihai
+#    - DOCKERHUB_TOKEN: <your DockerHub access token>
+# To create DockerHub token: DockerHub > Account Settings > Security > New Access Token
+
+name: Build and Push Frontend and Backend Images
+  
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build_and_push:
+    runs-on: ubuntu-latest
+    environment: dockerhub-push
+    permissions:
+      contents: read
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      
+      - name: Login to DockerHub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      
+      - name: Build and Push Frontend Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: Dockerfile.frontend
+          push: true
+          tags: |
+            andreimihai/sql-teacher-frontend:latest
+            andreimihai/sql-teacher-frontend:${{ github.sha }}
+      
+      - name: Build and Push Backend Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: Dockerfile.backend
+          push: true
+          tags: |
+            andreimihai/sql-teacher-backend:latest
+            andreimihai/sql-teacher-backend:${{ github.sha }}
+  
