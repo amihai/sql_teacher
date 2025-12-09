@@ -15,37 +15,48 @@ Each specialized agent handles a different part of the SQL learning journey, coo
 ## 🧩 Project Structure
 
 ```
+frontend/
+├── helpers/
+│ ├── init.py
+│ ├── get_conversation.py
+│ └── terms.py
+├── services/
+│ ├── init.py
+│ └── adk_service.py
+└── ui/
+│ ├── components/
+│ │  ├── init.py
+│ │  ├── base.py
+│ │  ├── components.py
+│ │  └── layout.py
+├── init.py
+└── main.py
 
-│sql_teacher/
+backend/
 ├── teacher_agent/
 │ ├── init.py
 │ ├── agent.py
 │ └── sub_agents/
-│ ├── memory_agent/
-│ │ ├── init.py
-│ │ ├── agent.py
-│ │ └── prompt.py
-│ │
-│ ├── query_explainer_agent/
-│ │ ├── init.py
-│ │ ├── agent.py
-│ │ └── prompt.py
-│ │
-│ ├── quiz_agent/
-│ │ ├── init.py
-│ │ ├── agent.py
-│ │ └── prompt.py
-│ │
-│ └── schema_designer_agent/
-│ ├── init.py
+│ │ ├── memory_agent/
+│ │ │ ├── init.py
+│ │ │ ├── agent.py
+│ │ │ └── prompt.py
+│ │ ├── query_explainer_agent/
+│ │ │ ├── init.py
+│ │ │ ├── agent.py
+│ │ │ └── prompt.py
+│ │ ├── quiz_agent/
+│ │ │ ├── init.py
+│ │ │ ├── agent.py
+│ │ │ └── prompt.py
+│ │ ├── schema_designer_agent/
+│ │── init.py
 │ ├── agent.py
 │ └── prompt.py
-│
 ├── tools/
 │ ├── init.py
 │ ├── db_connector.py
 │ └── sql_parser.py
-│
 ├── main.py
 ├── requirements.txt
 ├── .env
@@ -177,12 +188,11 @@ GOOGLE_API_KEY=your google API Key
   *    ```python main.py``` on Windows 
   * ```python3 main.py``` on MAC or Linux systems
 
+    This will open the backend. After opening the backend
+    go to frontend and run:
+     *  ```streamlit run main.py```
 
-A FastApi server will open, with a nice frontend interface so you can test 
-the app. Please note that this interface is mostly used for development and 
-not in production.
-
-2. Third method - using the **Docker Compose**
+3. Third method - using the **Docker Compose**
 * Open a terminal
 * Run:
   * ```docker compose up --build``` to build and start the application (both backend and frontend) 
