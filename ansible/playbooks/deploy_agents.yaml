@@ -36,4 +36,4 @@
         group: ansible
 
     - name: Ruleaza docker compose
-      command: "sudo docker compose -f {{ install_dir }}/compose.yml up -d"    
+      command: "sudo docker compose -f {{ install_dir }}/compose.yml up -d --pull always"    
