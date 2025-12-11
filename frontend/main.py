@@ -8,7 +8,7 @@ from frontend.ui.components.components import (
 )
 
 st.set_page_config(
-    page_title="SQL Teacher",
+    page_title="SQL Teacher v1.1",
     layout="wide",
     initial_sidebar_state="expanded"
 )
