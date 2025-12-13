@@ -28,6 +28,20 @@
         owner: ansible
         group: ansible
 
+    - name: Creeaza directorul de nginx config
+      file:
+        path: "{{ install_dir }}/nginx/"
+        state: directory
+        owner: ansible
+        group: ansible
+
+    - name: Creeaza directorul de loguri
+      file:
+        path: "{{ install_dir }}/logs/"
+        state: directory
+        owner: ansible
+        group: ansible
+
     - name: Copiaza compose.yml
       copy:
         src: "../../compose.yaml"  # cale relativa din ansible/playbooks/
