@@ -32,3 +32,9 @@ jobs:
           ansible-playbook \
             -i ansible/inventory.ini \
             ansible/playbooks/install_docker.yaml
+
+      - name: Start Sql Teacher Agents
+        run: |
+          ansible-playbook -i ansible/inventory.ini ansible/playbooks/deploy_agents.yaml \
+          -e "GOOGLE_GENAI_USE_VERTEXAI=${{ secrets.GOOGLE_GENAI_USE_VERTEXAI }} \
+          GOOGLE_API_KEY=${{ secrets.GOOGLE_API_KEY }}"
