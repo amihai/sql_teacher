@@ -1,6 +1,7 @@
 .venv/
 env/
 .idea/
+logs/
 __pycache__/
 .env
 sessions.db

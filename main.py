@@ -4,6 +4,13 @@ from fastapi import FastAPI
 from settings import settings
 from pathlib import Path
 
+from logging_data.logging_config import setup_backend_logging, get_backend_logger
+
+setup_backend_logging()
+
+logger = get_backend_logger(__name__)
+
+logger.info("Starting Teacher Agent API...")
 AGENT_DIR = str(Path(__file__).resolve().parent / "backend")
 SESSION_DB_URL = f"sqlite:///{settings.SESSION_DB}"
 

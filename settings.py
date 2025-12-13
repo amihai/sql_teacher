@@ -8,11 +8,12 @@ import logging
 logging.basicConfig(level=logging.INFO)
 
 class Settings:
-    APP_NAME="teacher_agent"
-    USER_ID="user"
-    BASE_URL=os.getenv("BASE_URL", "http://localhost:8082")
-    BASE_DIR=Path(__file__).parent
-    SESSION_DB=os.getenv("SESSION_DB", os.path.join(BASE_DIR, "session.db"))
+    APP_NAME = "teacher_agent"
+    USER_ID = "user"
+    BASE_URL = os.getenv("BASE_URL", "http://localhost:8082")
+    BASE_DIR = Path(__file__).parent
+    LOG_DIR = BASE_DIR / "logs"
+    SESSION_DB = os.getenv("SESSION_DB", os.path.join(BASE_DIR, "session.db"))
 
     @staticmethod
     def get_session_id():
