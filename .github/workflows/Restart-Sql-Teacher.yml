@@ -1,10 +1,10 @@
-name: Start Sql Teacher on Servers
+name: Restart Sql Teacher
 
 on:
   workflow_dispatch:   # rulare manuală
 
 jobs:
-  ansible:
+  restart_sql_teacher:
     runs-on: ubuntu-latest
 
     steps:

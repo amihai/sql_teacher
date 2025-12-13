@@ -5,14 +5,14 @@
 #    - DOCKERHUB_TOKEN: <your DockerHub access token>
 # To create DockerHub token: DockerHub > Account Settings > Security > New Access Token
 
-name: Build and Push Base Docker Image
+name: Base Docker Image (Build and Push)
 
 on:
   workflow_dispatch:
 
 
 jobs:
-  build_and_push:
+  build_and_push_base_image:
     runs-on: ubuntu-latest
     environment: dockerhub-push
     permissions:

@@ -1,10 +1,10 @@
-name: Install Docker on Servers
+name: Install Sql Teacher
 
 on:
   workflow_dispatch:   # rulare manuală
 
 jobs:
-  ansible:
+  install_sql_teacher:
     runs-on: ubuntu-latest
 
     steps:

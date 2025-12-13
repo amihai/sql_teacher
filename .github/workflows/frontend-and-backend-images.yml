@@ -5,7 +5,7 @@
 #    - DOCKERHUB_TOKEN: <your DockerHub access token>
 # To create DockerHub token: DockerHub > Account Settings > Security > New Access Token
 
-name: Build and Push Frontend and Backend Images
+name: Frontend and Backend Images (Build and Push)
   
 on:
   push:
@@ -13,7 +13,7 @@ on:
       - master
 
 jobs:
-  build_and_push:
+    build_and_push_frontend_and_backend_images:
     runs-on: ubuntu-latest
     environment: dockerhub-push
     permissions:

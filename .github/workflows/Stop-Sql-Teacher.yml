@@ -1,10 +1,10 @@
-name: Stop Sql Teacher on Servers
+name: Stop Sql Teacher Agents
 
 on:
   workflow_dispatch:   # rulare manuală
 
 jobs:
-  ansible:
+  stop_agents:
     runs-on: ubuntu-latest
 
     steps:
