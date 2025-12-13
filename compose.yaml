@@ -22,6 +22,7 @@ services:
       SESSION_DB: /storage/session.db
     volumes:
       - /tmp/storage:/storage
+      - ./logs/:/app/logs/
     networks:
       - sql-teacher-network
 
@@ -36,6 +37,8 @@ services:
     environment:
       # Atentie: aici trebuie pus numele serviciului de backend si portul INTERN al serviciului
       BASE_URL: "http://sql-teacher-backend:8080"
+    volumes:
+      - ./logs/:/app/logs/
     depends_on:
       - backend
     networks:
