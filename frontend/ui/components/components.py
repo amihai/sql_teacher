@@ -16,7 +16,6 @@ class SidebarComponent(BaseComponent):
     """Sidebar component for server configuration"""
 
     def __init__(self):
-        # Initialize logger BEFORE calling super().__init__()
         self.logger = get_frontend_logger(f"{__name__}.{self.__class__.__name__}")
         super().__init__("sidebar")
         self.is_sidebar = True
@@ -30,7 +29,6 @@ class SidebarComponent(BaseComponent):
         st.title("SQL Teacher")
 
         try:
-            # Only initialize if not already done
             if st.session_state.adk_client is None:
                 self.logger.info("Creating ADK service instance")
                 st.session_state.adk_client = ADKService()
@@ -60,7 +58,6 @@ class SessionManagerComponent(BaseComponent):
         if 'all_session_conversations' not in st.session_state:
             st.session_state.all_session_conversations = []
         
-        # Add flag to prevent unnecessary session refreshes
         if 'sessions_loaded' not in st.session_state:
             st.session_state.sessions_loaded = False
 
@@ -70,7 +67,7 @@ class SessionManagerComponent(BaseComponent):
             self.logger.warning("Attempted to render sessions without ADK client")
             return
 
-        #  get sessions if needed (on first load or after session changes)
+        #  get sessions if needed
         if not st.session_state.sessions_loaded or st.button("🔄 Refresh Sessions", key="refresh_sessions"):
             self.logger.info("Loading sessions...")
             self._load_sessions()
@@ -95,7 +92,7 @@ class SessionManagerComponent(BaseComponent):
             index=default_index,
         )
 
-        # update if selection actually changed
+        # update if selection changed
         index_of_session_conversation = st.session_state.all_session_conversations.index(selected_session)
         new_session_id = st.session_state.all_session_ids[index_of_session_conversation]
         
@@ -283,7 +280,6 @@ class ChatComponent(BaseComponent):
                         self.logger.debug(f"Response preview: {response_preview}")
                         st.write(response)
                     
-                    # Single rerun to update the full conversation
                     self.logger.info("Triggering rerun to refresh conversation")
                     st.rerun()
                     
