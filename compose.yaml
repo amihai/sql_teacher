@@ -33,12 +33,23 @@ services:
     container_name: sql-teacher-frontend
     ports:
       - "8501:8501"
-      - "80:8501"
     environment:
       # Atentie: aici trebuie pus numele serviciului de backend si portul INTERN al serviciului
       BASE_URL: "http://sql-teacher-backend:8080"
     depends_on:
       - backend
+    networks:
+      - sql-teacher-network
+  
+  nginx:
+    image: nginx:alpine
+    container_name: sql-teacher-nginx
+    ports:
+      - "80:80"
+    depends_on:
+      - frontend
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
     networks:
       - sql-teacher-network
 

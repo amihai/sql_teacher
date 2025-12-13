@@ -34,6 +34,13 @@
         dest: "{{ install_dir }}/compose.yml"
         owner: ansible
         group: ansible
+    
+    - name: Copiaza nginx Config file
+      copy:
+        src: "../../nginx/default.conf"  # cale relativa din ansible/playbooks/
+        dest: "{{ install_dir }}/nginx/default.conf"
+        owner: ansible
+        group: ansible
 
     - name: Ruleaza docker compose
       command: "sudo docker compose -f {{ install_dir }}/compose.yml up -d --pull always"    
