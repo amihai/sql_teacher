@@ -5,6 +5,7 @@ FROM andreimihai/sql-teacher-base
 LABEL authors="Marius" 
 
 COPY  backend backend
+COPY logging_data logging_data
 
 
 COPY settings.py .
