@@ -7,6 +7,7 @@ from frontend.helpers.terms import terms_and_conditions
 print("running...")
 print(st.session_state)
 
+
 class SidebarComponent(BaseComponent):
     """Sidebar component for server configuration"""
 
@@ -22,8 +23,10 @@ class SidebarComponent(BaseComponent):
         st.title("SQL Teacher")
 
         try:
-            st.session_state.adk_client = ADKService()
-            self.set_state("client_initialized", True)
+            # Only initialize if not already done
+            if st.session_state.adk_client is None:
+                st.session_state.adk_client = ADKService()
+                self.set_state("client_initialized", True)
         except Exception as e:
             self.set_state("client_initialized", False)
 
@@ -45,23 +48,25 @@ class SessionManagerComponent(BaseComponent):
         if 'all_session_conversations' not in st.session_state:
             st.session_state.all_session_conversations = []
 
+        if 'sessions_loaded' not in st.session_state:
+            st.session_state.sessions_loaded = False
+
     def render(self):
         if not st.session_state.adk_client:
             st.warning("Please configure server connection first")
             return
 
-        sessions = st.session_state.adk_client.get_sessions()
-        session_ids = [session["id"] for session in sessions]
+        if not st.session_state.sessions_loaded or st.button("🔄 Refresh Sessions", key="refresh_sessions"):
+            self._load_sessions()
+            st.session_state.sessions_loaded = True
 
-        all_sessions = [st.session_state.adk_client.get_session_by_id(session["id"]) for session in sessions]
-        session_conversations = [get_first_user_question(session) or f"New session {session['id'][:8]}..." for session in all_sessions]
+        if not st.session_state.all_session_ids:
+            st.info("No sessions available")
+            if st.button("Create First Session", key="create_first_session"):
+                self._create_new_session()
+            return
 
-        session_ids.insert(0, None)
-        session_conversations.insert(0, "Choose an option")
-
-        st.session_state.all_session_ids = session_ids
-        st.session_state.all_session_conversations = session_conversations
-
+        # default index
         if st.session_state.current_session_id and st.session_state.current_session_id in st.session_state.all_session_ids:
             default_index = st.session_state.all_session_ids.index(st.session_state.current_session_id)
         else:
@@ -74,8 +79,12 @@ class SessionManagerComponent(BaseComponent):
             index=default_index,
         )
 
+        # update on changes
         index_of_session_conversation = st.session_state.all_session_conversations.index(selected_session)
-        st.session_state.current_session_id = st.session_state.all_session_ids[index_of_session_conversation]
+        new_session_id = st.session_state.all_session_ids[index_of_session_conversation]
+
+        if new_session_id != st.session_state.current_session_id:
+            st.session_state.current_session_id = new_session_id
 
         col1, col2 = st.columns(2)
         with col1:
@@ -88,11 +97,33 @@ class SessionManagerComponent(BaseComponent):
                 self._delete_session()
 
     @staticmethod
+    def _load_sessions():
+        """Load all sessions from the service"""
+        try:
+            sessions = st.session_state.adk_client.get_sessions()
+            session_ids = [session["id"] for session in sessions]
+
+            all_sessions = [st.session_state.adk_client.get_session_by_id(session["id"]) for session in sessions]
+            session_conversations = [
+                get_first_user_question(session) or f"New session {session['id'][:8]}..."
+                for session in all_sessions
+            ]
+
+            session_ids.insert(0, None)
+            session_conversations.insert(0, "Choose an option")
+
+            st.session_state.all_session_ids = session_ids
+            st.session_state.all_session_conversations = session_conversations
+        except Exception as e:
+            st.error(f"Error loading sessions: {e}")
+
+    @staticmethod
     def _create_new_session():
         """Create a new conversation session"""
         try:
             session = st.session_state.adk_client.create_session()
             st.session_state.current_session_id = session["id"]
+            st.session_state.sessions_loaded = False
             st.success(f"Created new session: {session['id'][:8]}...")
             st.rerun()
         except Exception as e:
@@ -105,6 +136,7 @@ class SessionManagerComponent(BaseComponent):
             if st.session_state.current_session_id:
                 st.session_state.adk_client.delete_session(session_id=st.session_state.current_session_id)
                 st.session_state.current_session_id = None
+                st.session_state.sessions_loaded = False  # Mark for reload
                 st.rerun()
         except Exception as e:
             st.error(f"Error deleting session: {e}")
@@ -116,6 +148,12 @@ class ChatComponent(BaseComponent):
     def __init__(self):
         super().__init__("chat")
         self.is_sidebar = False
+
+    def initialize_state(self):
+        if 'cached_conversation' not in st.session_state:
+            st.session_state.cached_conversation = None
+        if 'cached_session_id' not in st.session_state:
+            st.session_state.cached_session_id = None
 
     def render(self):
         if not st.session_state.adk_client:
@@ -131,53 +169,78 @@ class ChatComponent(BaseComponent):
 
     @staticmethod
     def _render_conversation():
-        """Render the current conversation"""
-        selected_session = st.session_state.adk_client.get_session_by_id(
-            st.session_state.current_session_id
-        )
-        conversations = get_conversations(selected_session)
+        """Render the current conversation with caching"""
+
+        # get conversation if session changed or cache is empty
+        if (st.session_state.cached_session_id != st.session_state.current_session_id or
+                st.session_state.cached_conversation is None):
+
+            selected_session = st.session_state.adk_client.get_session_by_id(
+                st.session_state.current_session_id
+            )
+            conversations = get_conversations(selected_session)
+
+            st.session_state.cached_conversation = conversations
+            st.session_state.cached_session_id = st.session_state.current_session_id
+        else:
+            conversations = st.session_state.cached_conversation
 
         if conversations:
             st.subheader("Current Conversation")
             for turn in conversations.values():
-                for user, message in turn.items():
-                    if user == "user":
-                        with st.chat_message("user"):
-                            st.write(turn["user"])
+                if "user" in turn:
+                    with st.chat_message("user"):
+                        st.write(turn["user"])
 
-                    if user == "model":
-                        with st.chat_message("assistant"):
-                            st.write(turn["model"])
+                if "model" in turn:
+                    with st.chat_message("assistant"):
+                        st.write(turn["model"])
         else:
             st.info("There is no conversation within this session")
 
     def _render_chat_input(self):
         """Render the chat input field"""
+
         prompt = st.chat_input("Ask me anything...")
         if prompt:
             self._handle_user_message(prompt)
 
     @staticmethod
-    def _handle_user_message(message: str):
+    def _handle_user_message(self, message: str):
         """Handle user message and get response"""
+        # Create session if needed
         if not st.session_state.current_session_id:
             try:
                 session = st.session_state.adk_client.create_session()
                 st.session_state.current_session_id = session["id"]
+                st.session_state.sessions_loaded = False  # Mark for reload
             except Exception as e:
                 st.error(f"Error creating session: {e}")
                 return
+        # user message
+        with st.chat_message("user"):
+            st.write(message)
 
-        # Send message
-        with st.spinner("Thinking..."):
-            try:
-                response = st.session_state.adk_client.send_message(
-                    st.session_state.current_session_id,
-                    message
-                )
-                st.rerun()
-            except Exception as e:
-                st.error(f"Error processing query: {e}")
+        # agent response
+        with st.chat_message("assistant"):
+            with st.spinner("Thinking..."):
+                try:
+                    response = st.session_state.adk_client.send_message(
+                        st.session_state.current_session_id,
+                        message
+                    )
+
+                    st.session_state.cached_conversation = None
+
+                    # show response
+                    if response:
+                        st.write(response)
+
+                    st.rerun()
+
+                except Exception as e:
+                    st.error(f"Error processing query: {e}")
+
 
 class TermsModal(BaseComponent):
     def __init__(self):
@@ -190,9 +253,7 @@ class TermsModal(BaseComponent):
 
     @st.dialog("Terms and conditions")
     def _modal(self):
-        txt = st.markdown(
-               terms_and_conditions
-        )
+        st.markdown(terms_and_conditions)
         col1, col2 = st.columns(2)
 
         with col1:
@@ -206,6 +267,6 @@ class TermsModal(BaseComponent):
                 st.rerun()
 
     def render(self):
-        """If no decision render the model"""
+        """If no decision render the modal"""
         if st.session_state.get("accepted_terms") is None:
             self._modal()
