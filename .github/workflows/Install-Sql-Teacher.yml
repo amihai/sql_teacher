@@ -1,10 +1,21 @@
-name: Install Docker on Servers
+name: Install Sql Teacher
 
 on:
   workflow_dispatch:   # rulare manuală
+    inputs:
+      inventory_group:
+        description: 'Selecteaza environmentul pe care vrei sa rulezi"'
+        required: true
+        type: choice
+        options:
+          - all
+          - dev
+          - stage
+          - prod
+        default: 'dev'
 
 jobs:
-  ansible:
+  install_sql_teacher:
     runs-on: ubuntu-latest
 
     steps:
@@ -31,4 +42,13 @@ jobs:
         run: |
           ansible-playbook \
             -i ansible/inventory.ini \
+            -l ${{ github.event.inputs.inventory_group }} \
             ansible/playbooks/install_docker.yaml
+
+      - name: Start Sql Teacher Agents
+        run: |
+          ansible-playbook -i ansible/inventory.ini \
+          -l ${{ github.event.inputs.inventory_group }} \
+          ansible/playbooks/deploy_agents.yaml \
+          -e "GOOGLE_GENAI_USE_VERTEXAI=${{ secrets.GOOGLE_GENAI_USE_VERTEXAI }} \
+          GOOGLE_API_KEY=${{ secrets.GOOGLE_API_KEY }}"

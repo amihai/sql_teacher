@@ -23,7 +23,7 @@ app: FastAPI = get_fast_api_app(
     web=True,
 )
 
-app.title = "teacher-agent"
+app.title = "teacher-agent v.1.0"
 app.description = "API for interacting with the Agent teacher-agent"
 
 

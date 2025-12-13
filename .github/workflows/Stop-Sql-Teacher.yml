@@ -1,10 +1,21 @@
-name: Stop Sql Teacher on Servers
+name: Stop Sql Teacher Agents
 
 on:
   workflow_dispatch:   # rulare manuală
+    inputs:
+      inventory_group:
+        description: 'Selecteaza environmentul pe care vrei sa rulezi"'
+        required: true
+        type: choice
+        options:
+          - all
+          - dev
+          - stage
+          - prod
+        default: 'dev'
 
 jobs:
-  ansible:
+  stop_agents:
     runs-on: ubuntu-latest
 
     steps:
@@ -29,4 +40,6 @@ jobs:
 
       - name: Stop Sql Teacher Agents
         run: |
-          ansible-playbook -i ansible/inventory.ini ansible/playbooks/stop_agents.yaml
+          ansible-playbook -i ansible/inventory.ini \
+          -l ${{ github.event.inputs.inventory_group }} \
+          ansible/playbooks/stop_agents.yaml

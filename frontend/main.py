@@ -22,7 +22,7 @@ logger = get_frontend_logger(__name__)
 
 
 st.set_page_config(
-    page_title="SQL Teacher",
+    page_title="SQL Teacher v1.1",
     layout="wide",
     initial_sidebar_state="expanded"
 )

@@ -116,3 +116,4 @@ NameError: name 'logging' is not defined. Did you forget to import 'logging'
 2025-12-13 10:32:56,011 - INFO - frontend.frontend.ui.components.components.ChatComponent - Triggering rerun to refresh conversation
 2025-12-13 10:32:56,092 - INFO - frontend.__main__ - User accepted terms and conditions. Rendering main application.
 2025-12-13 10:32:56,096 - INFO - frontend.frontend.ui.components.components.ChatComponent - Fetching conversation for session: 14ea9195-d6c5-41af-8445-201b2bd65e0f
+
