@@ -1,10 +1,10 @@
-name: Start Sql Teacher on Servers
+name: Stop Sql Teacher Agents
 
 on:
   workflow_dispatch:   # rulare manuală
 
 jobs:
-  ansible:
+  stop_agents:
     runs-on: ubuntu-latest
 
     steps:
@@ -27,8 +27,6 @@ jobs:
           echo "[defaults]" > ~/.ansible.cfg
           echo "host_key_checking = False" >> ~/.ansible.cfg
 
-      - name: Start Sql Teacher Agents
+      - name: Stop Sql Teacher Agents
         run: |
-          ansible-playbook -i ansible/inventory.ini ansible/playbooks/deploy_agents.yaml \
-          -e "GOOGLE_GENAI_USE_VERTEXAI=${{ secrets.GOOGLE_GENAI_USE_VERTEXAI }} \
-          GOOGLE_API_KEY=${{ secrets.GOOGLE_API_KEY }}"
+          ansible-playbook -i ansible/inventory.ini ansible/playbooks/stop_agents.yaml
