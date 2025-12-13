@@ -1,0 +1,122 @@
+2025-12-13 09:55:13,641 - INFO - backend - ================================================================================
+2025-12-13 09:55:13,641 - INFO - backend - Backend logging system initialized
+2025-12-13 09:55:13,642 - INFO - backend - Log file: E:\live_coding_december\sql_teacher\logs\backend\backend_20251213.log
+2025-12-13 09:55:13,642 - INFO - backend - ================================================================================
+2025-12-13 09:55:13,642 - INFO - backend.main - Starting Teacher Agent API...
+2025-12-13 09:55:13,660 - INFO - google_adk.google.adk.sessions.database_session_service - Local timezone: Europe/Bucharest
+2025-12-13 09:57:20,907 - INFO - backend - ================================================================================
+2025-12-13 09:57:20,913 - INFO - backend - Backend logging system initialized
+2025-12-13 09:57:20,913 - INFO - backend - Log file: E:\live_coding_december\sql_teacher\logs\backend\backend_20251213.log
+2025-12-13 09:57:20,913 - INFO - backend - ================================================================================
+2025-12-13 09:57:20,913 - INFO - backend.main - Starting Teacher Agent API...
+2025-12-13 09:57:20,931 - INFO - google_adk.google.adk.sessions.database_session_service - Local timezone: Europe/Bucharest
+2025-12-13 09:59:01,286 - INFO - backend - ================================================================================
+2025-12-13 09:59:01,286 - INFO - backend - Backend logging system initialized
+2025-12-13 09:59:01,286 - INFO - backend - Log file: E:\live_coding_december\sql_teacher\logs\backend\backend_20251213.log
+2025-12-13 09:59:01,286 - INFO - backend - ================================================================================
+2025-12-13 09:59:01,286 - INFO - backend.main - Starting Teacher Agent API...
+2025-12-13 09:59:01,302 - INFO - google_adk.google.adk.sessions.database_session_service - Local timezone: Europe/Bucharest
+2025-12-13 09:59:08,235 - INFO - backend - ================================================================================
+2025-12-13 09:59:08,236 - INFO - backend - Backend logging system initialized
+2025-12-13 09:59:08,236 - INFO - backend - Log file: E:\live_coding_december\sql_teacher\logs\backend\backend_20251213.log
+2025-12-13 09:59:08,236 - INFO - backend - ================================================================================
+2025-12-13 09:59:08,237 - INFO - backend.main - Starting Teacher Agent API...
+2025-12-13 09:59:08,251 - INFO - google_adk.google.adk.sessions.database_session_service - Local timezone: Europe/Bucharest
+2025-12-13 09:59:15,660 - INFO - backend - ================================================================================
+2025-12-13 09:59:15,661 - INFO - backend - Backend logging system initialized
+2025-12-13 09:59:15,661 - INFO - backend - Log file: E:\live_coding_december\sql_teacher\logs\backend\backend_20251213.log
+2025-12-13 09:59:15,661 - INFO - backend - ================================================================================
+2025-12-13 09:59:15,662 - INFO - backend.main - Starting Teacher Agent API...
+2025-12-13 09:59:15,678 - INFO - google_adk.google.adk.sessions.database_session_service - Local timezone: Europe/Bucharest
+2025-12-13 10:06:09,705 - INFO - backend - ================================================================================
+2025-12-13 10:06:09,705 - INFO - backend - Backend logging system initialized
+2025-12-13 10:06:09,705 - INFO - backend - Log file: E:\live_coding_december\sql_teacher\logs\backend\backend_20251213.log
+2025-12-13 10:06:09,721 - INFO - backend - ================================================================================
+2025-12-13 10:06:09,721 - INFO - backend.main - Starting Teacher Agent API...
+2025-12-13 10:06:09,721 - INFO - google_adk.google.adk.sessions.database_session_service - Local timezone: Europe/Bucharest
+2025-12-13 10:10:40,753 - INFO - backend - ================================================================================
+2025-12-13 10:10:40,754 - INFO - backend - Backend logging system initialized
+2025-12-13 10:10:40,754 - INFO - backend - Log file: E:\live_coding_december\sql_teacher\logs\backend\backend_20251213.log
+2025-12-13 10:10:40,755 - INFO - backend - ================================================================================
+2025-12-13 10:10:40,755 - INFO - backend.main - Starting Teacher Agent API...
+2025-12-13 10:10:40,771 - INFO - google_adk.google.adk.sessions.database_session_service - Local timezone: Europe/Bucharest
+2025-12-13 10:11:27,919 - INFO - backend - ================================================================================
+2025-12-13 10:11:27,919 - INFO - backend - Backend logging system initialized
+2025-12-13 10:11:27,919 - INFO - backend - Log file: E:\live_coding_december\sql_teacher\logs\backend\backend_20251213.log
+2025-12-13 10:11:27,919 - INFO - backend - ================================================================================
+2025-12-13 10:11:27,927 - INFO - backend.main - Starting Teacher Agent API...
+2025-12-13 10:11:27,945 - INFO - google_adk.google.adk.sessions.database_session_service - Local timezone: Europe/Bucharest
+2025-12-13 10:11:34,422 - INFO - backend - ================================================================================
+2025-12-13 10:11:34,422 - INFO - backend - Backend logging system initialized
+2025-12-13 10:11:34,423 - INFO - backend - Log file: E:\live_coding_december\sql_teacher\logs\backend\backend_20251213.log
+2025-12-13 10:11:34,423 - INFO - backend - ================================================================================
+2025-12-13 10:11:34,423 - INFO - backend.main - Starting Teacher Agent API...
+2025-12-13 10:11:34,443 - INFO - google_adk.google.adk.sessions.database_session_service - Local timezone: Europe/Bucharest
+2025-12-13 10:11:40,702 - INFO - backend - ================================================================================
+2025-12-13 10:11:40,702 - INFO - backend - Backend logging system initialized
+2025-12-13 10:11:40,702 - INFO - backend - Log file: E:\live_coding_december\sql_teacher\logs\backend\backend_20251213.log
+2025-12-13 10:11:40,702 - INFO - backend - ================================================================================
+2025-12-13 10:11:40,702 - INFO - backend.main - Starting Teacher Agent API...
+2025-12-13 10:11:40,718 - INFO - google_adk.google.adk.sessions.database_session_service - Local timezone: Europe/Bucharest
+2025-12-13 10:11:59,786 - INFO - backend - ================================================================================
+2025-12-13 10:11:59,786 - INFO - backend - Backend logging system initialized
+2025-12-13 10:11:59,786 - INFO - backend - Log file: E:\live_coding_december\sql_teacher\logs\backend\backend_20251213.log
+2025-12-13 10:11:59,786 - INFO - backend - ================================================================================
+2025-12-13 10:11:59,801 - INFO - backend.main - Starting Teacher Agent API...
+2025-12-13 10:11:59,818 - INFO - google_adk.google.adk.sessions.database_session_service - Local timezone: Europe/Bucharest
+2025-12-13 10:12:51,116 - INFO - backend - ================================================================================
+2025-12-13 10:12:51,116 - INFO - backend - Backend logging system initialized
+2025-12-13 10:12:51,116 - INFO - backend - Log file: E:\live_coding_december\sql_teacher\logs\backend\backend_20251213.log
+2025-12-13 10:12:51,116 - INFO - backend - ================================================================================
+2025-12-13 10:12:51,116 - INFO - backend.main - Starting Teacher Agent API...
+2025-12-13 10:12:51,161 - INFO - google_adk.google.adk.sessions.database_session_service - Local timezone: Europe/Bucharest
+2025-12-13 10:16:28,373 - INFO - backend - ================================================================================
+2025-12-13 10:16:28,373 - INFO - backend - Backend logging system initialized
+2025-12-13 10:16:28,373 - INFO - backend - Log file: E:\live_coding_december\sql_teacher\logs\backend\backend_20251213.log
+2025-12-13 10:16:28,373 - INFO - backend - ================================================================================
+2025-12-13 10:16:28,373 - INFO - backend.main - Starting Teacher Agent API...
+2025-12-13 10:16:28,394 - INFO - google_adk.google.adk.sessions.database_session_service - Local timezone: Europe/Bucharest
+2025-12-13 10:17:29,805 - INFO - backend - ================================================================================
+2025-12-13 10:17:29,805 - INFO - backend - Backend logging system initialized
+2025-12-13 10:17:29,806 - INFO - backend - Log file: E:\live_coding_december\sql_teacher\logs\backend\backend_20251213.log
+2025-12-13 10:17:29,806 - INFO - backend - ================================================================================
+2025-12-13 10:17:29,806 - INFO - backend.main - Starting Teacher Agent API...
+2025-12-13 10:17:29,811 - INFO - google_adk.google.adk.sessions.database_session_service - Local timezone: Europe/Bucharest
+2025-12-13 10:19:10,621 - INFO - backend - ================================================================================
+2025-12-13 10:19:10,621 - INFO - backend - Backend logging system initialized
+2025-12-13 10:19:10,621 - INFO - backend - Log file: E:\live_coding_december\sql_teacher\logs\backend\backend_20251213.log
+2025-12-13 10:19:10,621 - INFO - backend - ================================================================================
+2025-12-13 10:19:10,621 - INFO - backend.main - Starting Teacher Agent API...
+2025-12-13 10:19:10,649 - INFO - google_adk.google.adk.sessions.database_session_service - Local timezone: Europe/Bucharest
+2025-12-13 10:19:21,095 - INFO - backend - ================================================================================
+2025-12-13 10:19:21,096 - INFO - backend - Backend logging system initialized
+2025-12-13 10:19:21,096 - INFO - backend - Log file: E:\live_coding_december\sql_teacher\logs\backend\backend_20251213.log
+2025-12-13 10:19:21,097 - INFO - backend - ================================================================================
+2025-12-13 10:19:21,097 - INFO - backend.main - Starting Teacher Agent API...
+2025-12-13 10:19:21,114 - INFO - google_adk.google.adk.sessions.database_session_service - Local timezone: Europe/Bucharest
+2025-12-13 10:20:36,505 - INFO - backend - ================================================================================
+2025-12-13 10:20:36,506 - INFO - backend - Backend logging system initialized
+2025-12-13 10:20:36,506 - INFO - backend - Log file: E:\live_coding_december\sql_teacher\logs\backend\backend_20251213.log
+2025-12-13 10:20:36,506 - INFO - backend - ================================================================================
+2025-12-13 10:20:36,506 - INFO - backend.main - Starting Teacher Agent API...
+2025-12-13 10:20:36,527 - INFO - google_adk.google.adk.sessions.database_session_service - Local timezone: Europe/Bucharest
+2025-12-13 10:20:43,125 - INFO - backend - ================================================================================
+2025-12-13 10:20:43,125 - INFO - backend - Backend logging system initialized
+2025-12-13 10:20:43,125 - INFO - backend - Log file: E:\live_coding_december\sql_teacher\logs\backend\backend_20251213.log
+2025-12-13 10:20:43,125 - INFO - backend - ================================================================================
+2025-12-13 10:20:43,125 - INFO - backend.main - Starting Teacher Agent API...
+2025-12-13 10:20:43,147 - INFO - google_adk.google.adk.sessions.database_session_service - Local timezone: Europe/Bucharest
+2025-12-13 10:20:53,549 - INFO - E:\live_coding_december\sql_teacher\.venv\Lib\site-packages\google\adk\cli\utils\envs.py - Loaded .env file for teacher_agent at E:\live_coding_december\sql_teacher\.env
+2025-12-13 10:20:53,551 - INFO - E:\live_coding_december\sql_teacher\.venv\Lib\site-packages\google\adk\cli\utils\envs.py - Loaded .env file for teacher_agent at E:\live_coding_december\sql_teacher\.env
+2025-12-13 10:20:53,580 - INFO - google_adk.google.adk.cli.utils.agent_loader - Found root_agent in teacher_agent.agent
+2025-12-13 10:20:54,224 - INFO - google_adk.google.adk.models.google_llm - Sending out request, model: gemini-2.0-flash, backend: GoogleLLMVariant.GEMINI_API, stream: False
+2025-12-13 10:20:54,225 - INFO - google_genai.models - AFC is enabled with max remote calls: 10.
+2025-12-13 10:20:55,504 - INFO - httpx - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent "HTTP/1.1 200 OK"
+2025-12-13 10:20:55,506 - INFO - google_adk.google.adk.models.google_llm - Response received from the model.
+2025-12-13 10:20:55,526 - INFO - google_adk.google.adk.cli.adk_web_server - Generated 1 events in agent run
+2025-12-13 10:21:10,488 - INFO - E:\live_coding_december\sql_teacher\.venv\Lib\site-packages\google\adk\cli\utils\envs.py - Loaded .env file for teacher_agent at E:\live_coding_december\sql_teacher\.env
+2025-12-13 10:21:11,109 - INFO - google_adk.google.adk.models.google_llm - Sending out request, model: gemini-2.0-flash, backend: GoogleLLMVariant.GEMINI_API, stream: False
+2025-12-13 10:21:11,110 - INFO - google_genai.models - AFC is enabled with max remote calls: 10.
+2025-12-13 10:21:13,099 - INFO - httpx - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent "HTTP/1.1 200 OK"
+2025-12-13 10:21:13,103 - INFO - google_adk.google.adk.models.google_llm - Response received from the model.
+2025-12-13 10:21:13,124 - INFO - google_adk.google.adk.cli.adk_web_server - Generated 1 events in agent run

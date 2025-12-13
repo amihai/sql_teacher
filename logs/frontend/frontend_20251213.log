@@ -1,0 +1,68 @@
+2025-12-13 10:12:58,617 - INFO - frontend - ================================================================================
+2025-12-13 10:12:58,618 - INFO - frontend - Frontend logging system initialized
+2025-12-13 10:12:58,618 - INFO - frontend - Log file: E:\live_coding_december\sql_teacher\logs\frontend\frontend_20251213.log
+2025-12-13 10:12:58,618 - INFO - frontend - ================================================================================
+2025-12-13 10:13:00,353 - INFO - frontend.__main__ - User accepted terms and conditions. Rendering main application.
+2025-12-13 10:13:00,355 - INFO - root - ADKService initialized with base URL: http://localhost:8082
+2025-12-13 10:13:04,723 - INFO - frontend.__main__ - User accepted terms and conditions. Rendering main application.
+2025-12-13 10:13:06,391 - INFO - frontend.__main__ - User accepted terms and conditions. Rendering main application.
+2025-12-13 10:19:27,789 - INFO - frontend - ================================================================================
+2025-12-13 10:19:27,790 - INFO - frontend - Frontend logging system initialized
+2025-12-13 10:19:27,790 - INFO - frontend - Log file: E:\live_coding_december\sql_teacher\logs\frontend\frontend_20251213.log
+2025-12-13 10:19:27,790 - INFO - frontend - ================================================================================
+2025-12-13 10:19:27,791 - INFO - frontend.frontend.ui.components.components.TermsModal - Initializing accepted_terms state
+2025-12-13 10:19:29,657 - INFO - frontend.frontend.ui.components.components.TermsModal - User accepted terms and conditions
+2025-12-13 10:19:29,701 - INFO - frontend.__main__ - User accepted terms and conditions. Rendering main application.
+2025-12-13 10:19:29,704 - INFO - frontend.frontend.ui.components.components.SidebarComponent - Initializing adk_client state
+2025-12-13 10:19:29,705 - INFO - frontend.frontend.ui.components.components.SessionManagerComponent - Initializing current_session_id state
+2025-12-13 10:19:29,705 - INFO - frontend.frontend.ui.components.components.ChatComponent - Initializing cached_conversation state
+2025-12-13 10:19:29,705 - INFO - frontend.frontend.ui.components.components.SidebarComponent - Creating ADK service instance
+2025-12-13 10:19:29,705 - INFO - root - ADKService initialized with base URL: http://localhost:8082
+2025-12-13 10:19:29,705 - INFO - frontend.frontend.ui.components.components.SidebarComponent - ADK service initialized successfully
+2025-12-13 10:19:29,705 - INFO - frontend.frontend.ui.components.components.SessionManagerComponent - Loading sessions...
+2025-12-13 10:19:29,709 - INFO - frontend.frontend.ui.components.components.SessionManagerComponent - Fetching sessions from ADK service
+2025-12-13 10:19:31,789 - INFO - frontend.frontend.ui.components.components.SessionManagerComponent - Retrieved 10 sessions
+2025-12-13 10:19:34,106 - INFO - frontend.__main__ - User accepted terms and conditions. Rendering main application.
+2025-12-13 10:19:34,109 - INFO - frontend.frontend.ui.components.components.SessionManagerComponent - Session changed from None to 14ea9195-d6c5-41af-8445-201b2bd65e0f
+2025-12-13 10:19:34,112 - INFO - frontend.frontend.ui.components.components.ChatComponent - Fetching conversation for session: 14ea9195-d6c5-41af-8445-201b2bd65e0f
+2025-12-13 10:19:40,219 - INFO - frontend.__main__ - User accepted terms and conditions. Rendering main application.
+2025-12-13 10:19:40,225 - INFO - frontend.frontend.ui.components.components.ChatComponent - User submitted message: 'cati agenti ai?...'
+2025-12-13 10:19:40,227 - INFO - frontend.frontend.ui.components.components.ChatComponent - Sending message to session 14ea9195-d6c5-41af-8445-201b2bd65e0f
+2025-12-13 10:19:40,228 - ERROR - frontend.frontend.ui.components.components.ChatComponent - Error processing message: name 'logging' is not defined
+Traceback (most recent call last):
+  File "E:\live_coding_december\sql_teacher\frontend\ui\components\components.py", line 271, in _handle_user_message
+    start_time = logging.time() if hasattr(logging, 'time') else None
+                                           ^^^^^^^
+NameError: name 'logging' is not defined. Did you forget to import 'logging'
+2025-12-13 10:20:37,864 - INFO - frontend.frontend.ui.components.components - Components module loaded
+2025-12-13 10:20:37,872 - INFO - frontend - ================================================================================
+2025-12-13 10:20:37,872 - INFO - frontend - Frontend logging system initialized
+2025-12-13 10:20:37,873 - INFO - frontend - Log file: E:\live_coding_december\sql_teacher\logs\frontend\frontend_20251213.log
+2025-12-13 10:20:37,873 - INFO - frontend - ================================================================================
+2025-12-13 10:20:37,877 - INFO - frontend.frontend.ui.components.components.TermsModal - Initializing accepted_terms state
+2025-12-13 10:20:39,110 - INFO - frontend.frontend.ui.components.components.TermsModal - User accepted terms and conditions
+2025-12-13 10:20:39,167 - INFO - frontend.__main__ - User accepted terms and conditions. Rendering main application.
+2025-12-13 10:20:39,171 - INFO - frontend.frontend.ui.components.components.SidebarComponent - Initializing adk_client state
+2025-12-13 10:20:39,171 - INFO - frontend.frontend.ui.components.components.SessionManagerComponent - Initializing current_session_id state
+2025-12-13 10:20:39,171 - INFO - frontend.frontend.ui.components.components.ChatComponent - Initializing cached_conversation state
+2025-12-13 10:20:39,174 - INFO - frontend.frontend.ui.components.components.SidebarComponent - Creating ADK service instance
+2025-12-13 10:20:39,174 - INFO - root - ADKService initialized with base URL: http://localhost:8082
+2025-12-13 10:20:39,175 - INFO - frontend.frontend.ui.components.components.SidebarComponent - ADK service initialized successfully
+2025-12-13 10:20:39,175 - INFO - frontend.frontend.ui.components.components.SessionManagerComponent - Loading sessions...
+2025-12-13 10:20:39,176 - INFO - frontend.frontend.ui.components.components.SessionManagerComponent - Fetching sessions from ADK service
+2025-12-13 10:20:43,247 - INFO - frontend.frontend.ui.components.components.SessionManagerComponent - Retrieved 10 sessions
+2025-12-13 10:20:45,279 - INFO - frontend.__main__ - User accepted terms and conditions. Rendering main application.
+2025-12-13 10:20:45,282 - INFO - frontend.frontend.ui.components.components.SessionManagerComponent - Session changed from None to 14ea9195-d6c5-41af-8445-201b2bd65e0f
+2025-12-13 10:20:45,285 - INFO - frontend.frontend.ui.components.components.ChatComponent - Fetching conversation for session: 14ea9195-d6c5-41af-8445-201b2bd65e0f
+2025-12-13 10:20:51,481 - INFO - frontend.__main__ - User accepted terms and conditions. Rendering main application.
+2025-12-13 10:20:51,488 - INFO - frontend.frontend.ui.components.components.ChatComponent - User submitted message: 'catiagenti ai?...'
+2025-12-13 10:20:51,491 - INFO - frontend.frontend.ui.components.components.ChatComponent - Sending message to session 14ea9195-d6c5-41af-8445-201b2bd65e0f
+2025-12-13 10:20:59,306 - INFO - frontend.frontend.ui.components.components.ChatComponent - Triggering rerun to refresh conversation
+2025-12-13 10:20:59,387 - INFO - frontend.__main__ - User accepted terms and conditions. Rendering main application.
+2025-12-13 10:20:59,393 - INFO - frontend.frontend.ui.components.components.ChatComponent - Fetching conversation for session: 14ea9195-d6c5-41af-8445-201b2bd65e0f
+2025-12-13 10:21:08,430 - INFO - frontend.__main__ - User accepted terms and conditions. Rendering main application.
+2025-12-13 10:21:08,437 - INFO - frontend.frontend.ui.components.components.ChatComponent - User submitted message: 'care sunt agentii?...'
+2025-12-13 10:21:08,440 - INFO - frontend.frontend.ui.components.components.ChatComponent - Sending message to session 14ea9195-d6c5-41af-8445-201b2bd65e0f
+2025-12-13 10:21:13,129 - INFO - frontend.frontend.ui.components.components.ChatComponent - Triggering rerun to refresh conversation
+2025-12-13 10:21:13,245 - INFO - frontend.__main__ - User accepted terms and conditions. Rendering main application.
+2025-12-13 10:21:13,250 - INFO - frontend.frontend.ui.components.components.ChatComponent - Fetching conversation for session: 14ea9195-d6c5-41af-8445-201b2bd65e0f
