@@ -9,7 +9,7 @@ logging.basicConfig(level=logging.INFO)
 
 class Settings:
     APP_NAME = "teacher_agent"
-    APP_VERSION = "1.5.0"
+    APP_VERSION = "1.6.0"
     USER_ID = "user"
     BASE_URL = os.getenv("BASE_URL", "http://localhost:8082")
     BASE_DIR = Path(__file__).parent
