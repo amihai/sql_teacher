@@ -45,7 +45,7 @@ services:
       - sql-teacher-network
     
   nginx:
-    image: nginx:alpine
+    image: nginx:1.29.4-alpine3.23
     container_name: sql-teacher-nginx
     ports:
       - "80:80"
