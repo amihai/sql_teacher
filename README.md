@@ -337,3 +337,25 @@ cd sql-teacher
 sudo docker compose down
 sudo docker compose up -d --pull always
 ```
+
+### Generate Certificates
+
+Stop everything that is running on port 80
+```
+docker compose down
+```
+
+Generate the certificates
+```
+sudo apt update
+sudo apt install certbot
+sudo certbot certonly --standalone \
+  -d amihai.ro \
+  -m amihai1024@gmail.com \
+  --agree-tos --no-eff-email
+```
+
+Restart the application
+```
+docker compose up -d
+```
