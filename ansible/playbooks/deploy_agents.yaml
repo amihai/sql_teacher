@@ -41,6 +41,13 @@
         state: directory
         owner: ansible
         group: ansible
+    
+    - name: Creeaza directorul docker-entrypoint.d
+      file:
+        path: "{{ install_dir }}/nginx/docker-entrypoint.d/"
+        state: directory
+        owner: ansible
+        group: ansible
 
     - name: Creeaza directorul de loguri
       file:
@@ -70,6 +77,13 @@
         owner: ansible
         group: ansible
         mode: '0644'
+
+    - name: Copiaza nginx add-ssl-config script
+      copy:
+        src: "../../nginx/docker-entrypoint.d/05-add-ssl-config.sh"  # cale relativa din ansible/playbooks/
+        dest: "{{ install_dir }}/nginx/docker-entrypoint.d/05-add-ssl-config.sh"
+        owner: ansible
+        group: ansible
 
     - name: Ruleaza docker compose
       command: "sudo docker compose -f {{ install_dir }}/compose.yml up -d --pull always"    
