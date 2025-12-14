@@ -1,7 +1,8 @@
 # docker build -t andreimihai/sql-teacher-frontend -f Dockerfile.frontend .
 # docker network create sql-teacher-network
 # docker run --rm -p 8501:8501 -e BASE_URL="http://sql-teacher-backend:8082" --name sql-teacher-frontend --network sql-teacher-network andreimihai/sql-teacher-frontend
-FROM andreimihai/sql-teacher-base
+ARG DOCKERHUB_USERNAME=andreimihai
+FROM ${DOCKERHUB_USERNAME}/sql-teacher-base
 LABEL authors="Marius" 
 
 COPY  frontend frontend

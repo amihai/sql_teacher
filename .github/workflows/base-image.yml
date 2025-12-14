@@ -38,6 +38,6 @@ jobs:
           file: Dockerfile.base
           push: true
           tags: |
-            andreimihai/sql-teacher-base:latest
-            andreimihai/sql-teacher-base:${{ github.sha }}
+            ${{ secrets.DOCKERHUB_USERNAME }}/sql-teacher-base:latest
+            ${{ secrets.DOCKERHUB_USERNAME }}/sql-teacher-base:${{ github.sha }}
   
