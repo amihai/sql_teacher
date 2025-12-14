@@ -247,7 +247,7 @@ class ChatComponent(BaseComponent):
                 self.logger.info("No active session, creating new session for message")
                 session = st.session_state.adk_client.create_session()
                 st.session_state.current_session_id = session["id"]
-                st.session_state.sessions_loaded = False  # Mark for reload
+                st.session_state.sessions_loaded = False
                 self.logger.info(f"Created session {session['id']} for incoming message")
             except Exception as e:
                 self.logger.error(f"Error creating session for message: {e}", exc_info=True)
@@ -276,9 +276,11 @@ class ChatComponent(BaseComponent):
                     
                     # show response 
                     if response:
+                        print(response)
                         response_preview = str(response)[:100] + "..." if len(str(response)) > 100 else str(response)
                         self.logger.debug(f"Response preview: {response_preview}")
-                        st.write(response)
+                        if "text" in response[0]["content"]["parts"][0]:
+                            st.write(response[0]["content"]["parts"][0]["text"])
                     
                     self.logger.info("Triggering rerun to refresh conversation")
                     st.rerun()
