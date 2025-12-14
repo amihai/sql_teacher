@@ -2,7 +2,7 @@ import streamlit as st
 from typing import Optional
 from frontend.ui.components.base import BaseComponent
 from frontend.services.adk_service import ADKService
-from frontend.helpers.get_conversation import get_conversations, get_first_user_question
+from frontend.helpers.get_conversation import get_conversations, get_first_user_question, extract_model_response_text
 from frontend.helpers.terms import terms_and_conditions
 from logging_data.logging_config import get_frontend_logger
 
@@ -274,11 +274,11 @@ class ChatComponent(BaseComponent):
                     st.session_state.cached_conversation = None
                     self.logger.debug("Invalidated conversation cache")
                     
-                    # show response 
+                    # Extract and show response text only
                     if response:
-                        response_preview = str(response)[:100] + "..." if len(str(response)) > 100 else str(response)
-                        self.logger.debug(f"Response preview: {response_preview}")
-                        st.write(response)
+                        response_text = extract_model_response_text(response)
+                        self.logger.debug(f"Response text preview: {response_text[:100] if len(response_text) > 100 else response_text}")
+                        st.write(response_text)
                     
                     self.logger.info("Triggering rerun to refresh conversation")
                     st.rerun()

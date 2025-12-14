@@ -30,3 +30,37 @@ def get_first_user_question(session):
             return session["events"][0]["content"]["parts"][0]["text"][0:20]
 
 
+def extract_model_response_text(response):
+    """Extract the model's text response from ADK API response"""
+    try:
+        # Handle response with events array (similar to session structure)
+        if isinstance(response, dict):
+            if "events" in response:
+                # Look for the last model response in events
+                for event in reversed(response["events"]):
+                    if (event.get("content", {}).get("role") == "model" and
+                        "parts" in event.get("content", {}) and
+                        len(event["content"]["parts"]) > 0 and
+                        "text" in event["content"]["parts"][0]):
+                        return event["content"]["parts"][0]["text"]
+            
+            # Handle direct response structure
+            if "content" in response:
+                if (response["content"].get("role") == "model" and
+                    "parts" in response["content"] and
+                    len(response["content"]["parts"]) > 0 and
+                    "text" in response["content"]["parts"][0]):
+                    return response["content"]["parts"][0]["text"]
+            
+            # Handle response with parts directly
+            if "parts" in response and len(response["parts"]) > 0:
+                if "text" in response["parts"][0]:
+                    return response["parts"][0]["text"]
+        
+        # Fallback: return the response as string
+        return str(response)
+    except (KeyError, IndexError, TypeError) as e:
+        # If structure is unexpected, return the response as string
+        return str(response)
+
+
