@@ -1,7 +1,7 @@
 # Credentials should be stored as GitHub Secrets in repository settings:
 # 1. Go to repository Settings > Secrets and variables > Actions
 # 2. Add new repository secrets:
-#    - DOCKERHUB_USERNAME: andreimihai
+#    - DOCKERHUB_USERNAME: <your DockerHub username>
 #    - DOCKERHUB_TOKEN: <your DockerHub access token>
 # To create DockerHub token: DockerHub > Account Settings > Security > New Access Token
 
