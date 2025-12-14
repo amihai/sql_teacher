@@ -8,9 +8,7 @@
 name: Frontend and Backend Images (Build and Push)
   
 on:
-  push:
-    branches:
-      - master
+  workflow_dispatch:
 
 jobs:
   build_and_push_frontend_and_backend_images:
