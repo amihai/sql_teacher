@@ -63,14 +63,13 @@
         owner: ansible
         group: ansible
     
-    - name: Copiaza nginx Config.d files  
+    - name: Copiaza nginx itschool.org.ro.conf files  
       copy:
-        src: "../../nginx/conf.d/"  # cale relativa din ansible/playbooks/
-        dest: "{{ install_dir }}/nginx/conf.d/"
+        src: "../../nginx/conf.d/itschool.org.ro.conf"  # cale relativa din ansible/playbooks/
+        dest: "{{ install_dir }}/nginx/conf.d/itschool.org.ro.conf"
         owner: ansible
         group: ansible
         mode: '0644'
-        recurse: yes
 
     - name: Ruleaza docker compose
       command: "sudo docker compose -f {{ install_dir }}/compose.yml up -d --pull always"    
