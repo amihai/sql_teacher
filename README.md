@@ -205,14 +205,157 @@ GOOGLE_API_KEY=your google API Key
   * Stop the application: ```docker compose down```
 
 
-4️⃣ Build and Deploy
-1. Ansible
+## Build and Deploy (CI/CD)
+
+### Fork this repo on your github space
+
+### Prepare your secrets/credentials
+
+#### Google API KEY
+Login to Google CLoud and generate a GOOGLE_API_KEY. 
+
+#### SSH Key Pair
+Generate on your machine an ssh key-pair using the command:
+```ssh-keygen```
+Keep the default options.
+
+### Configure the Secrets in the Github Actions
+
+   * Go to the github fork created and click: 
+    ```Settings > Secrets and variables > Actions```
+
+   * Click on the New repository secret to add a new secret. For deploy you will need to add the next secrets:
+       * ANSIBLE_SSH_PRIVATE_KEY = set here the content of you PRIVATE key ```cat ~/.ssh/id_rsa```
+       * GOOGLE_GENAI_USE_VERTEXAI=False
+       * GOOGLE_GENAI_USE_VERTEXAI= The value from Google Cloud 
+
+   * OPTIONAL: If you plan to build and push new version of the application from Github Actions you will need to set:
+       * DOCKERHUB_USERNAME
+       * DOCKERHUB_TOKEN
+       You can get this values from Docker Hub.
+
+
+### Prepare a VM
+
+#### AWS
+
+##### Import the SSH Key
+  ```EC2 > Key Pairs > Actions > Import Key Pair```
+  Add a name for your key pair
+  cat the public key from your local machine (generated previously and paste it in the text area)
+  ```cat ~/.ssh/id_rsa.pub```
+
+##### Create an EC2 Instance
+   ```EC2  > Instances > Launch instances```
+   * Select OS Ubuntu.
+   * Select the key pair previously created.
+   * Check the Allow HTTPS and Allow HTTP traffic
+   * Set a disk of at least 20 GB
+   * Click Launch instance
+   * Click on the instance to see the details. The IP is important for us.
+   * Verify thet you can ```ssh ubuntu@IP_VM``` from your local machine
+   * Update the machines IPs in the `ansible/inventory.ini`:
+```
+[stage]
+aws-1 ansible_host=<PUT_HERE_THE_IP> ansible_user=ubuntu 
+```
+   * Commit
+   * Run the `Install Sql Teacher` github action from Actions annd select the right environment (stage in our case)  
+
+#### NON-AWS
+If you created a VM on a different provider be sure that you follow this extra steps before running the Github Actions
+
+##### Setup ansible user
+```
+wget https://raw.githubusercontent.com/mariusciurea/sql_teacher/refs/heads/master/ansible/setup-ansible-user.sh
+
+chmod +x setup-ansible-user.sh
+
+./setup-ansible-user.sh 'PUBLIC KEY HERE'
+```
+Check that from your local machine you can:
+```
+ssh ansible@<IP_VM>
+sudo ls
+```
+The sudo must work without password.
+
+##### Hardening SSH
+
+In `/etc/ssh/sshd_config`
+Set:
+
+```
+Port 9456 #Set here any port you want but be sure to update also the inventory.ini file
+PermitRootLogin no
+PasswordAuthentication no
+```
+And reboot the machine.
+You should test that you cannot login via root or username and password.
+```ssh -p 9456 ansible@VM_IP``` 
+
+
+
+###  Debug
+
+#### Run ansible from local
 * Update the machines IPs in the `ansible/inventory.ini` 
 * Install Docker ```ansible-playbook -i ansible/inventory.ini ansible/playbooks/install_docker.yaml``` 
 * Deploy Sql Teacher
     * ```source .env```
     * ```ansible-playbook -i ansible/inventory.ini ansible/playbooks/deploy_agents.yaml -e "GOOGLE_GENAI_USE_VERTEXAI=$GOOGLE_GENAI_USE_VERTEXAI GOOGLE_API_KEY=$GOOGLE_API_KEY"```
 * Open the service in browse:
-  * [SQL Teacher Streamlit Frontend](http://217.156.93.84:8501/)
+  * [SQL Teacher Streamlit Frontend](https://itschool.org.ro/)
 * Stop Sql Teacher
     * ```ansible-playbook -i ansible/inventory.ini ansible/playbooks/stop_agents.yaml```
+
+#### Docker logs
+
+* Docker see all containers
+```sudo docker ps```
+
+* Docker check logs
+```
+sudo docker logs -f sql-teacher-nginx
+sudo docker logs -f sql-teacher-frontend
+sudo docker logs -f sql-teacher-backend
+```
+
+* Check application logs from disk
+```
+tail -f sql-teacher/logs/backend/*.log
+tail -f sql-teacher/logs/frontend/*.log
+```
+
+* Purge the database
+```
+rm /tmp/storage/session.db
+```
+restart the application
+```
+cd sql-teacher
+sudo docker compose down
+sudo docker compose up -d --pull always
+```
+
+### Generate Certificates
+
+Stop everything that is running on port 80
+```
+docker compose down
+```
+
+Generate the certificates
+```
+sudo apt update
+sudo apt install certbot
+sudo certbot certonly --standalone \
+  -d amihai.ro \
+  -m amihai1024@gmail.com \
+  --agree-tos --no-eff-email
+```
+
+Restart the application
+```
+docker compose up -d
+```
