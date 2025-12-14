@@ -229,6 +229,11 @@ Keep the default options.
        * GOOGLE_GENAI_USE_VERTEXAI=False
        * GOOGLE_GENAI_USE_VERTEXAI= The value from Google Cloud 
 
+   * OPTIONAL: If you plan to build and push new version of the application from Github Actions you will need to set:
+       * DOCKERHUB_USERNAME
+       * DOCKERHUB_TOKEN
+       You can get this values from Docker Hub.
+
 
 ### Prepare a VM
 
@@ -259,11 +264,41 @@ aws-1 ansible_host=<PUT_HERE_THE_IP> ansible_user=ubuntu
 
 #### NON-AWS
 If you created a VM on a different provider be sure that you follow this extra steps before running the Github Actions
+
 ##### Setup ansible user
+```
+wget https://raw.githubusercontent.com/mariusciurea/sql_teacher/refs/heads/master/ansible/setup-ansible-user.sh
+
+chmod +x setup-ansible-user.sh
+
+./setup-ansible-user.sh 'PUBLIC KEY HERE'
+```
+Check that from your local machine you can:
+```
+ssh ansible@<IP_VM>
+sudo ls
+```
+The sudo must work without password.
+
 ##### Hardening SSH
 
+In `/etc/ssh/sshd_config`
+Set:
 
-1. Ansible
+```
+Port 9456 #Set here any port you want but be sure to update also the inventory.ini file
+PermitRootLogin no
+PasswordAuthentication no
+```
+And reboot the machine.
+You should test that you cannot login via root or username and password.
+```ssh -p 9456 ansible@VM_IP``` 
+
+
+
+###  Debug
+
+#### Run ansible from local
 * Update the machines IPs in the `ansible/inventory.ini` 
 * Install Docker ```ansible-playbook -i ansible/inventory.ini ansible/playbooks/install_docker.yaml``` 
 * Deploy Sql Teacher
@@ -273,3 +308,32 @@ If you created a VM on a different provider be sure that you follow this extra s
   * [SQL Teacher Streamlit Frontend](https://itschool.org.ro/)
 * Stop Sql Teacher
     * ```ansible-playbook -i ansible/inventory.ini ansible/playbooks/stop_agents.yaml```
+
+#### Docker logs
+
+* Docker see all containers
+```sudo docker ps```
+
+* Docker check logs
+```
+sudo docker logs -f sql-teacher-nginx
+sudo docker logs -f sql-teacher-frontend
+sudo docker logs -f sql-teacher-backend
+```
+
+* Check application logs from disk
+```
+tail -f sql-teacher/logs/backend/*.log
+tail -f sql-teacher/logs/frontend/*.log
+```
+
+* Purge the database
+```
+rm /tmp/storage/session.db
+```
+restart the application
+```
+cd sql-teacher
+sudo docker compose down
+sudo docker compose up -d --pull always
+```
