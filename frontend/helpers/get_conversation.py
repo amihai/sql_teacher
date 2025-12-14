@@ -31,7 +31,15 @@ def get_first_user_question(session):
 
 
 def extract_model_response_text(response):
-    """Extract the model's text response from ADK API response"""
+    """Extract the model's text response from ADK API response
+    
+    Args:
+        response: The response dictionary from ADK API send_message call
+        
+    Returns:
+        str: The extracted text content from the model's response, or string 
+             representation of response if structure is unexpected
+    """
     try:
         # Handle response with events array (similar to session structure)
         if isinstance(response, dict):
@@ -59,7 +67,7 @@ def extract_model_response_text(response):
         
         # Fallback: return the response as string
         return str(response)
-    except (KeyError, IndexError, TypeError) as e:
+    except (KeyError, IndexError, TypeError):
         # If structure is unexpected, return the response as string
         return str(response)
 
