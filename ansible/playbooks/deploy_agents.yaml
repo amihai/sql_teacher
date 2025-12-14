@@ -84,6 +84,7 @@
         dest: "{{ install_dir }}/nginx/docker-entrypoint.d/05-add-ssl-config.sh"
         owner: ansible
         group: ansible
+        mode: '0755'
 
     - name: Ruleaza docker compose
       command: "sudo docker compose -f {{ install_dir }}/compose.yml up -d --pull always"    
