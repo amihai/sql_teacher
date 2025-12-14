@@ -10,12 +10,10 @@ from frontend.ui.components.components import (
 if 'logging_initialized' not in st.session_state:
     from logging_data.logging_config import setup_frontend_logging
     
-    # Setup frontend logging with date-based files
     setup_frontend_logging()
     
     st.session_state.logging_initialized = True
 
-# Import logger after initialization
 from logging_data.logging_config import get_frontend_logger
 
 logger = get_frontend_logger(__name__)
