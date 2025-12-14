@@ -35,6 +35,13 @@
         owner: ansible
         group: ansible
 
+    - name: Creeaza directorul de nginx config.d
+      file:
+        path: "{{ install_dir }}/nginx/conf.d/"
+        state: directory
+        owner: ansible
+        group: ansible
+
     - name: Creeaza directorul de loguri
       file:
         path: "{{ install_dir }}/logs/"
@@ -55,6 +62,15 @@
         dest: "{{ install_dir }}/nginx/default.conf"
         owner: ansible
         group: ansible
+    
+    - name: Copiaza nginx Config.d files  
+      copy:
+        src: "../../nginx/conf.d/"  # cale relativa din ansible/playbooks/
+        dest: "{{ install_dir }}/nginx/conf.d/"
+        owner: ansible
+        group: ansible
+        mode: '0644'
+        recurse: yes
 
     - name: Ruleaza docker compose
       command: "sudo docker compose -f {{ install_dir }}/compose.yml up -d --pull always"    
