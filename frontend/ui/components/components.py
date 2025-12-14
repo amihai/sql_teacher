@@ -274,11 +274,10 @@ class ChatComponent(BaseComponent):
                     st.session_state.cached_conversation = None
                     self.logger.debug("Invalidated conversation cache")
                     
-                    # Extract and show response text only
+                    # Log response for debugging (don't display to avoid JSON flash)
                     if response:
                         response_text = extract_model_response_text(response)
                         self.logger.debug(f"Response text preview: {response_text[:100] if len(response_text) > 100 else response_text}")
-                        st.write(response_text)
                     
                     self.logger.info("Triggering rerun to refresh conversation")
                     st.rerun()
