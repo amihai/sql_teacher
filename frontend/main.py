@@ -1,5 +1,6 @@
 import streamlit as st
 from frontend.ui.components.layout import Layout
+from settings import settings
 from frontend.ui.components.components import (
     SidebarComponent,
     ChatComponent,
@@ -20,7 +21,7 @@ logger = get_frontend_logger(__name__)
 
 
 st.set_page_config(
-    page_title="SQL Teacher v1.1",
+    page_title=f"SQL Teacher {settings.APP_VERSION}",
     layout="wide",
     initial_sidebar_state="expanded"
 )

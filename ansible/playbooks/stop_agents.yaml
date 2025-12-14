@@ -3,7 +3,7 @@
   become: true
 
   vars:
-    install_dir: "/home/ansible/sql-teacher"
+    install_dir: "/home/{{ ansible_user }}/sql-teacher"
 
   tasks:
     - name: Ruleaza docker compose down
