@@ -35,7 +35,7 @@
 
     - name: Adauga userul ansible in grupul docker
       user:
-        name: ansible
+        name: "{{ ansible_user }}"
         groups: docker
         append: yes
 
