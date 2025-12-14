@@ -78,6 +78,14 @@
         group: "{{ ansible_user }}"
         mode: '0644'
 
+    - name: Copiaza nginx amihai.ro.conf files  
+      copy:
+        src: "../../nginx/conf.d/amihai.ro.conf"  # cale relativa din ansible/playbooks/
+        dest: "{{ install_dir }}/nginx/conf.d/amihai.ro.conf"
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"
+        mode: '0644'
+
     - name: Copiaza nginx add-ssl-config script
       copy:
         src: "../../nginx/docker-entrypoint.d/05-add-ssl-config.sh"  # cale relativa din ansible/playbooks/
