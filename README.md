@@ -205,7 +205,64 @@ GOOGLE_API_KEY=your google API Key
   * Stop the application: ```docker compose down```
 
 
-4️⃣ Build and Deploy
+## Build and Deploy (CI/CD)
+
+### Fork this repo on your github space
+
+### Prepare your secrets/credentials
+
+#### Google API KEY
+Login to Google CLoud and generate a GOOGLE_API_KEY. 
+
+#### SSH Key Pair
+Generate on your machine an ssh key-pair using the command:
+```ssh-keygen```
+Keep the default options.
+
+### Configure the Secrets in the Github Actions
+
+   * Go to the github fork created and click: 
+    ```Settings > Secrets and variables > Actions```
+
+   * Click on the New repository secret to add a new secret. For deploy you will need to add the next secrets:
+       * ANSIBLE_SSH_PRIVATE_KEY = set here the content of you PRIVATE key ```cat ~/.ssh/id_rsa```
+       * GOOGLE_GENAI_USE_VERTEXAI=False
+       * GOOGLE_GENAI_USE_VERTEXAI= The value from Google Cloud 
+
+
+### Prepare a VM
+
+#### AWS
+
+##### Import the SSH Key
+  ```EC2 > Key Pairs > Actions > Import Key Pair```
+  Add a name for your key pair
+  cat the public key from your local machine (generated previously and paste it in the text area)
+  ```cat ~/.ssh/id_rsa.pub```
+
+##### Create an EC2 Instance
+   ```EC2  > Instances > Launch instances```
+   * Select OS Ubuntu.
+   * Select the key pair previously created.
+   * Check the Allow HTTPS and Allow HTTP traffic
+   * Set a disk of at least 20 GB
+   * Click Launch instance
+   * Click on the instance to see the details. The IP is important for us.
+   * Verify thet you can ```ssh ubuntu@IP_VM``` from your local machine
+   * Update the machines IPs in the `ansible/inventory.ini`:
+```
+[stage]
+aws-1 ansible_host=<PUT_HERE_THE_IP> ansible_user=ubuntu 
+```
+   * Commit
+   * Run the `Install Sql Teacher` github action from Actions annd select the right environment (stage in our case)  
+
+#### NON-AWS
+If you created a VM on a different provider be sure that you follow this extra steps before running the Github Actions
+##### Setup ansible user
+##### Hardening SSH
+
+
 1. Ansible
 * Update the machines IPs in the `ansible/inventory.ini` 
 * Install Docker ```ansible-playbook -i ansible/inventory.ini ansible/playbooks/install_docker.yaml``` 
@@ -213,6 +270,6 @@ GOOGLE_API_KEY=your google API Key
     * ```source .env```
     * ```ansible-playbook -i ansible/inventory.ini ansible/playbooks/deploy_agents.yaml -e "GOOGLE_GENAI_USE_VERTEXAI=$GOOGLE_GENAI_USE_VERTEXAI GOOGLE_API_KEY=$GOOGLE_API_KEY"```
 * Open the service in browse:
-  * [SQL Teacher Streamlit Frontend](http://217.156.93.84:8501/)
+  * [SQL Teacher Streamlit Frontend](https://itschool.org.ro/)
 * Stop Sql Teacher
     * ```ansible-playbook -i ansible/inventory.ini ansible/playbooks/stop_agents.yaml```
