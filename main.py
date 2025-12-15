@@ -10,7 +10,7 @@ setup_backend_logging()
 
 logger = get_backend_logger(__name__)
 
-logger.info("Starting Teacher Agent API...")
+logger.info("Starting Teacher Agent API... Version %s", settings.APP_VERSION)
 AGENT_DIR = str(Path(__file__).resolve().parent / "backend")
 SESSION_DB_URL = f"sqlite:///{settings.SESSION_DB}"
 
