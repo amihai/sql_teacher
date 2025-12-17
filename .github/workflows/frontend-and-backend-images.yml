@@ -8,7 +8,11 @@
 name: Frontend and Backend Images (Build and Push)
   
 on:
-  workflow_dispatch:
+  push:
+    branches:
+      - main
+      - master
+  
 
 jobs:
   build_and_push_frontend_and_backend_images:
@@ -49,4 +53,35 @@ jobs:
           tags: |
             andreimihai/sql-teacher-backend:latest
             andreimihai/sql-teacher-backend:${{ github.sha }}
+
+  redeploy_dev_environment:
+    runs-on: ubuntu-latest
+    needs: build_and_push_frontend_and_backend_images
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Install Ansible
+        run: |
+          sudo apt update
+          sudo apt install -y ansible
+      - name: Add SSH key
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: |
+            ${{ secrets.ANSIBLE_SSH_PRIVATE_KEY }}
+      - name: Disable host key checking
+        run: |
+          echo "[defaults]" > ~/.ansible.cfg
+          echo "host_key_checking = False" >> ~/.ansible.cfg
+      - name: Restart Dev Environment
+        run: |
+          ansible-playbook -i ansible/inventory.ini \
+          ansible/playbooks/deploy_agents.yaml \
+          -l dev \
+          -e "GOOGLE_GENAI_USE_VERTEXAI=${{ secrets.GOOGLE_GENAI_USE_VERTEXAI }} \
+          GOOGLE_API_KEY=${{ secrets.GOOGLE_API_KEY }}"
   

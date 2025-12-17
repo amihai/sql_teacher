@@ -13,5 +13,11 @@ include_certificates_config() {
     fi
 }
 
+# Observatie: Aici montez unul cate unul fiserele de config doar ca sa fie clar in 
+# timpul demo-ului toate locatiile unde trebuie modificat pentru un domeniu now. 
+# In productie asta trebuie sa fie automaziata si generica (sa nu depinda de domeniu) 
+
 include_certificates_config "itschool.org.ro"
+include_certificates_config "dev.itschool.org.ro"
+include_certificates_config "stage.itschool.org.ro"
 include_certificates_config "amihai.ro"

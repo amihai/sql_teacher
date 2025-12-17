@@ -53,9 +53,14 @@ services:
     depends_on:
       - frontend
     volumes:
+    # Observatie: Aici montez unul cate unul fiserele de config doar ca sa fie clar in 
+    # timpul demo-ului toate locatiile unde trebuie modificat pentru un domeniu now. 
+    # In productie asta trebuie sa fie automaziata si generica (sa nu depinda de domeniu) 
       - /etc/letsencrypt:/etc/letsencrypt:ro
       - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
       - ./nginx/conf.d/itschool.org.ro.conf:/tmp/nginx/conf.d/itschool.org.ro.conf:ro
+      - ./nginx/conf.d/dev.itschool.org.ro.conf:/tmp/nginx/conf.d/dev.itschool.org.ro.conf:ro
+      - ./nginx/conf.d/stage.itschool.org.ro.conf:/tmp/nginx/conf.d/stage.itschool.org.ro.conf:ro
       - ./nginx/conf.d/amihai.ro.conf:/tmp/nginx/conf.d/amihai.ro.conf:ro
       - ./nginx/docker-entrypoint.d/05-add-ssl-config.sh:/docker-entrypoint.d/05-add-ssl-config.sh:ro
     networks:

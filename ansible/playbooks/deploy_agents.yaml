@@ -70,6 +70,10 @@
         owner: "{{ ansible_user }}"
         group: "{{ ansible_user }}"
     
+    # Observatie: Aici montez unul cate unul fiserele de config doar ca sa fie clar in 
+    # timpul demo-ului toate locatiile unde trebuie modificat pentru un domeniu now. 
+    # In productie asta trebuie sa fie automaziata si generica (sa nu depinda de domeniu) 
+    
     - name: Copiaza nginx itschool.org.ro.conf files  
       copy:
         src: "../../nginx/conf.d/itschool.org.ro.conf"  # cale relativa din ansible/playbooks/
@@ -82,6 +86,22 @@
       copy:
         src: "../../nginx/conf.d/amihai.ro.conf"  # cale relativa din ansible/playbooks/
         dest: "{{ install_dir }}/nginx/conf.d/amihai.ro.conf"
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"
+        mode: '0644'
+
+    - name: Copiaza nginx stage.itschool.org.ro.conf files  
+      copy:
+        src: "../../nginx/conf.d/stage.itschool.org.ro.conf"  # cale relativa din ansible/playbooks/
+        dest: "{{ install_dir }}/nginx/conf.d/stage.itschool.org.ro.conf"
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"
+        mode: '0644'
+
+    - name: Copiaza nginx dev.itschool.org.ro.conf files  
+      copy:
+        src: "../../nginx/conf.d/dev.itschool.org.ro.conf"  # cale relativa din ansible/playbooks/
+        dest: "{{ install_dir }}/nginx/conf.d/dev.itschool.org.ro.conf"
         owner: "{{ ansible_user }}"
         group: "{{ ansible_user }}"
         mode: '0644'
