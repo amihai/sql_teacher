@@ -1,0 +1,90 @@
+# Automatically build, push Docker images and deploy to dev environment
+# This workflow runs on every push to main/master branches
+# Credentials should be stored as GitHub Secrets:
+# - DOCKERHUB_USERNAME: DockerHub username
+# - DOCKERHUB_TOKEN: DockerHub access token
+# - ANSIBLE_SSH_PRIVATE_KEY: SSH private key for Ansible
+# - GOOGLE_GENAI_USE_VERTEXAI: Google API configuration
+# - GOOGLE_API_KEY: Google API key
+
+name: Deploy to Dev (Build, Push, Restart)
+
+on:
+  push:
+    branches:
+      - main
+      - master
+
+jobs:
+  build_and_push_images:
+    runs-on: ubuntu-latest
+    environment: dockerhub-push
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to DockerHub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and Push Frontend Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: Dockerfile.frontend
+          push: true
+          tags: |
+            andreimihai/sql-teacher-frontend:latest
+            andreimihai/sql-teacher-frontend:${{ github.sha }}
+
+      - name: Build and Push Backend Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: Dockerfile.backend
+          push: true
+          tags: |
+            andreimihai/sql-teacher-backend:latest
+            andreimihai/sql-teacher-backend:${{ github.sha }}
+
+  restart_dev_environment:
+    runs-on: ubuntu-latest
+    needs: build_and_push_images
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Install Ansible
+        run: |
+          sudo apt update
+          sudo apt install -y ansible
+
+      - name: Add SSH key
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: |
+            ${{ secrets.ANSIBLE_SSH_PRIVATE_KEY }}
+
+      - name: Disable host key checking
+        run: |
+          echo "[defaults]" > ~/.ansible.cfg
+          echo "host_key_checking = False" >> ~/.ansible.cfg
+
+      - name: Restart Dev Environment
+        run: |
+          ansible-playbook -i ansible/inventory.ini \
+          ansible/playbooks/deploy_agents.yaml \
+          -l dev \
+          -e "GOOGLE_GENAI_USE_VERTEXAI=${{ secrets.GOOGLE_GENAI_USE_VERTEXAI }} \
+          GOOGLE_API_KEY=${{ secrets.GOOGLE_API_KEY }}"
