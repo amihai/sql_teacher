@@ -15,4 +15,5 @@ include_certificates_config() {
 
 include_certificates_config "itschool.org.ro"
 include_certificates_config "dev.itschool.org.ro"
+include_certificates_config "stage.itschool.org.ro"
 include_certificates_config "amihai.ro"
