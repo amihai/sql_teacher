@@ -86,4 +86,3 @@ jobs:
           -l dev \
           -e "GOOGLE_GENAI_USE_VERTEXAI=${{ secrets.GOOGLE_GENAI_USE_VERTEXAI }} \
           GOOGLE_API_KEY=${{ secrets.GOOGLE_API_KEY }}"
-
