@@ -1,5 +1,6 @@
 # export GOOGLE_API_KEY=your_real_key_here
 # export GOOGLE_GENAI_USE_VERTEXAI=False
+# export DOCKERHUB_USERNAME=andreimihai
 # sau puse direct in .env pt ca docker stie sa le ia de acolo
 
 # docker compse up --build
@@ -8,10 +9,12 @@
 
 services:
   backend:
-    image: andreimihai/sql-teacher-backend
+    image: ${DOCKERHUB_USERNAME:-andreimihai}/sql-teacher-backend
     build:
       context: .
       dockerfile: Dockerfile.backend
+      args:
+        DOCKERHUB_USERNAME: ${DOCKERHUB_USERNAME:-andreimihai}
     container_name: sql-teacher-backend
     ports:
       - "8082:8080"
@@ -27,10 +30,12 @@ services:
       - sql-teacher-network
 
   frontend:
-    image: andreimihai/sql-teacher-frontend
+    image: ${DOCKERHUB_USERNAME:-andreimihai}/sql-teacher-frontend
     build:
       context: .
       dockerfile: Dockerfile.frontend
+      args:
+        DOCKERHUB_USERNAME: ${DOCKERHUB_USERNAME:-andreimihai}
     container_name: sql-teacher-frontend
     ports:
       - "8501:8501"

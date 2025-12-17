@@ -51,4 +51,5 @@ jobs:
           -l ${{ github.event.inputs.inventory_group }} \
           ansible/playbooks/deploy_agents.yaml \
           -e "GOOGLE_GENAI_USE_VERTEXAI=${{ secrets.GOOGLE_GENAI_USE_VERTEXAI }} \
-          GOOGLE_API_KEY=${{ secrets.GOOGLE_API_KEY }}"
+          GOOGLE_API_KEY=${{ secrets.GOOGLE_API_KEY }} \
+          DOCKERHUB_USERNAME=${{ secrets.DOCKERHUB_USERNAME }}"
