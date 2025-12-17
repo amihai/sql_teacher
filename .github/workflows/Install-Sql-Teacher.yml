@@ -8,10 +8,9 @@ on:
         required: true
         type: choice
         options:
-          - all
           - dev
-          - stage
-          - prod
+          - prod-amihai
+          - prod-itschool
         default: 'dev'
 
 jobs:
